@@ -1,5 +1,5 @@
 package com.example.demo.services;
 
 public interface LoginService {
-    boolean login(String edv, String password);
+    String login(String edv, String password); //retorna Token JWT
 }

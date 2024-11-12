@@ -1,7 +1,9 @@
 package com.example.demo.services;
 
+import com.example.demo.model.Permission;
+
 public interface PermissionService {
 
-    boolean setPermission(Long idUser, Long idSpace, Integer level);
+    Permission create(Long spaceId, long userId, int level);
     
 }

@@ -8,5 +8,5 @@ import com.example.demo.model.Space;
 
 public interface SpaceRepository extends JpaRepository<Space, Long> {
     
-    List<Space> findByName(String name);
+    List<Space> findByNameContaining(String name);
 } 

@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
+import com.example.demo.model.Answer;
+
 public interface AnswerService {
 
-    String create(Long idQuestion, String answer);
+    Answer create(Long questionId, String answer, Long userId);
 } 
