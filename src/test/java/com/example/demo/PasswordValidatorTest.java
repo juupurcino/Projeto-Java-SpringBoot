@@ -15,6 +15,8 @@ public class PasswordValidatorTest {
 
     @Autowired
     CriptService criptService;
+
+    //verificar se senha é valida
     
     @Test
     void validateSmallPass() {
@@ -58,6 +60,7 @@ public class PasswordValidatorTest {
         assertEquals(passService.verify("1234fdsaergfds"), false);
     }
 
+    // comparar senha com senha criptografada
     @Test
     void validateHashedPassoword() {
         assertEquals(criptService.compare("senhaprotegida", criptService.encode("senhaprotegida")), true);

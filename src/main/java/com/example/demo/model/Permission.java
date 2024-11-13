@@ -22,7 +22,7 @@ public class Permission {
     private User user;
 
     @Column
-    private Integer level;
+    private Integer level; //nivel de permissao exemplo: 1-adm 2-leitor 3-integrante do grupo 👍
 
     public Long getId() {
         return id;
