@@ -22,9 +22,7 @@ public class UserImplementation implements UserService{
         user.setUsername(name);
         user.setEmail(email);
         user.setEdv(edv);
-
-        password = criptService.encode(password);
-        user.setPassword(password);
+        user.setPassword(criptService.encode(password));
 
         userRepository.save(user);
         return user;
@@ -32,17 +30,22 @@ public class UserImplementation implements UserService{
 
     @Override
     public List<User> get(String query, int page, int size) {
-        List<User> users = userRepository.searchUser(query);
+        List<User> users;
+        if(query == null)
+            users = userRepository.findAll();
+        else
+            users = userRepository.searchUser(query);
+            
         if(users.isEmpty())
-            return null;
+            return List.of();
         if(size > users.size())
-            return null;
+            return List.of();
         
         Integer start = (page-1) * size; 
         Integer end = page * size;
         // Integer totalPages = (users.size() / size) + (users.size() % size != 0 ? 1 : 0);        //Util talvez?
         
-        if(start >= users.size() || end >= users.size() || start < 0 || end < 0)
+        if(start > users.size() || end > users.size() || start < 0 || end < 0)
             return null;
 
         return users.subList(start, end);

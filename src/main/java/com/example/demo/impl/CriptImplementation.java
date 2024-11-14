@@ -6,16 +6,21 @@ import com.example.demo.services.CriptService;
 
 public class CriptImplementation implements CriptService{
 
+    private final BCryptPasswordEncoder encoder;
+
+    public CriptImplementation()
+    {
+        encoder = new BCryptPasswordEncoder(10);
+        System.out.println("BCRYPT CRIADO");
+    }
+
     @Override
     public String encode(String password) {
-        var encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);
     }
 
     @Override
     public boolean compare(String password, String hashedPassword) {
-        var encoder = new BCryptPasswordEncoder();
         return encoder.matches(password, hashedPassword);
     }
-    
 }

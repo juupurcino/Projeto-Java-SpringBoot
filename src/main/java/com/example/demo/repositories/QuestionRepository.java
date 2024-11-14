@@ -12,5 +12,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     
     @Query("SELECT u FROM Question u WHERE u.title = :searchValue or u.question = :searchValue")
     List<Question> searchQuestion(@Param("searchValue") String searchValue);
-    List<Question> findBySpaceId(Long id);
+    List<Question> findAllBySpaceIdSpace(Long id);
 }

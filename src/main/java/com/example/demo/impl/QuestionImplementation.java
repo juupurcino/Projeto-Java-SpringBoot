@@ -23,7 +23,7 @@ public class QuestionImplementation implements QuestionService {
 
     @Override
     public List<Question> getBySpaceId(Long spaceId, int page, int size) {
-        List<Question> questions = questionRepository.findBySpaceId(spaceId);       
+        List<Question> questions = questionRepository.findAllBySpaceIdSpace(spaceId);       
         if(questions.isEmpty())
             return null;
 
