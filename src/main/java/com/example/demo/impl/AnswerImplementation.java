@@ -45,7 +45,7 @@ public class AnswerImplementation implements AnswerService {
 
     @Override
     public List<Answer> get(Long questionId, int page, int size) {
-        List<Answer> answers = answerRepository.findbyQuestionIdQuestion(questionId);
+        List<Answer> answers = answerRepository.findByQuestionId(questionId);
         if(answers.isEmpty())
             return null;
 

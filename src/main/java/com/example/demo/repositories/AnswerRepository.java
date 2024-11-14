@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.model.Answer;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    List<Answer> findbyQuestionIdQuestion(Long id);
+    List<Answer> findByQuestionId(Long id);
 }

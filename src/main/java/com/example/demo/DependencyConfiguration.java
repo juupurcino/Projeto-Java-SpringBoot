@@ -4,12 +4,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import com.example.demo.dto.Token;
+import com.example.demo.impl.AnswerImplementation;
 import com.example.demo.impl.CriptImplementation;
+import com.example.demo.impl.JwtImplementation;
 import com.example.demo.impl.LoginImplementation;
 import com.example.demo.impl.PassImplementation;
 import com.example.demo.impl.QuestionImplementation;
 import com.example.demo.impl.SpaceImplementation;
 import com.example.demo.impl.UserImplementation;
+import com.example.demo.services.AnswerService;
 import com.example.demo.services.CriptService;
 import com.example.demo.services.JWTService;
 import com.example.demo.services.LoginService;
@@ -70,5 +74,11 @@ public class DependencyConfiguration {
     @Scope("singleton")
     public QuestionService questionService(){
         return new QuestionImplementation();
+    }
+
+    @Bean
+    @Scope("singleton")
+    public AnswerService answerService(){
+        return new AnswerImplementation();
     }
 }
