@@ -42,7 +42,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         
         var authentication = new UsernamePasswordAuthenticationToken(null,null,null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
+                
         request.setAttribute("token", token);
         filterChain.doFilter(request, response);
     }

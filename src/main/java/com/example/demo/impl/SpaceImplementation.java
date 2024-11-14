@@ -55,5 +55,13 @@ public class SpaceImplementation implements SpaceService {
         spaceRepository.deleteById(id);
         return true;
     }
+
+    @Override
+    public Space getById(Long id) {
+        if (spaceRepository.findById(id).isEmpty())
+            return null;
+        
+        return spaceRepository.findById(id).get();
+    }
     
 }
