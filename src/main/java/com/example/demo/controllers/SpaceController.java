@@ -41,16 +41,26 @@ public class SpaceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Space>> getSpaces(String query, int page, int size){
-        // if(page == null)
-        //     page = 1;
+    public ResponseEntity<List<Space>> getSpaces(String query, Integer page, Integer size){
+        if(page == null)
+            page = 1;
         
-        // if(size)
-        //     size = 10;
+        if(size == null)
+            size = 10;
+        
+        var spaces = spaceService.get(query, page, size);
 
-        System.out.println(page);
-        System.out.println(size);
+        if (spaces == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return new ResponseEntity<>(spaces, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Space> getQuestionById(@PathVariable Long id){
+        if(spaceService.getById(id) == null)
+            return ResponseEntity.badRequest().build();
         
-        return new ResponseEntity<>(spaceService.get(query, page, size), HttpStatus.OK);
+        return new ResponseEntity<>(spaceService.getById(id), HttpStatus.OK);
     }
 }
