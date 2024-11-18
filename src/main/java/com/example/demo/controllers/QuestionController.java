@@ -54,7 +54,11 @@ public class QuestionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQuestion(@PathVariable Long id, @RequestAttribute("token") Token token){
         User user = userService.getById(token.getId());
-        if(!(questionService.checkPermission(user.getId(), questionService.getById(id).getSpace().getIdSpace()) == 1 || Objects.equals(questionService.getById(id).getUser().getId(), user.getId())))
+        Question question = questionService.getById(id);
+        if(question == null)
+            return new ResponseEntity<>("Questão inválida", HttpStatus.BAD_REQUEST);
+
+        if(!(questionService.checkPermission(user.getId(), question.getSpace().getIdSpace()) == 1 || Objects.equals(questionService.getById(id).getUser().getId(), user.getId())))
             return new ResponseEntity<>("Você não possui permissão suficiente", HttpStatus.UNAUTHORIZED);
         
         if(!questionService.delete(id))

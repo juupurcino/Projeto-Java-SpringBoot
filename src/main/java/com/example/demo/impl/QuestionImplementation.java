@@ -41,11 +41,11 @@ public class QuestionImplementation implements QuestionService {
             return List.of();
 
         if (questionRepository.count() < page * size)
-            if (questionRepository.count() > (page - 1) * size) {
+            if (questionRepository.count() > (page - 1) * size)
                 return questions.subList((page - 1) * size, (int)questionRepository.count());
-            } else {
+            else 
                 return null;
-            }
+            
 
         return questions.subList((page - 1) * size, page * size);
     }
@@ -92,6 +92,8 @@ public class QuestionImplementation implements QuestionService {
     @Override
     public Integer checkPermission(Long userId, Long spaceId) {
         Permission permission = permissionRepository.findBySpaceIdSpaceAndUserId(spaceId, userId);
+        if(permission == null)
+            return 2;
         return permission.getLevel();
     }
 

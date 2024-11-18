@@ -31,8 +31,9 @@ public class SpaceController {
     UserService userService;
     
     @PostMapping
-    public ResponseEntity<String> createSpace(@RequestBody spaceDto newSpace){
-        if(spaceService.create(newSpace.name(), newSpace.qtdUsers(), newSpace.userId()) == null)
+    public ResponseEntity<String> createSpace(@RequestBody spaceDto newSpace, @RequestAttribute("token") Token token){
+        User user = userService.getById(token.getId());
+        if(spaceService.create(newSpace.name(), newSpace.qtdUsers(), user.getId()) == null)
             return new ResponseEntity<>("Erro", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>("Espaço criado com sucesso", HttpStatus.OK);
