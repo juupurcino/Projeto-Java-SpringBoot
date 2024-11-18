@@ -40,7 +40,7 @@ public class AnswerController {
         if(permission == null || permission.getLevel() == 2)
             return new ResponseEntity<>("Permissão insuficiente", HttpStatus.UNAUTHORIZED);
 
-        if(answerService.create(newanswer.idQuestion(), newanswer.answer(), newanswer.idUser()) == null)
+        if(answerService.create(newanswer.idQuestion(), newanswer.answer(), user.getId()) == null)
             return new ResponseEntity<>("Erro", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>("Resposta criada com sucesso", HttpStatus.OK);
