@@ -1,3 +1,39 @@
 # Equipe-2
 Fernando e Cristian
+                Todos os modelos utilizam Id com o nome "Id", menos o "Space", lá se chama "idSpace".
+                A ordem de permissões foi nos passado da seguinte maneira: 1-Administrador, 2-Apenas leitor, 3-Participante do espaço.
+                Adicionar um usuário a um espaço e dar permissão fazem a mesma coisa, por isso não há uma rota para cada, quando for   
+        adicionar um novo usuário ao espaço apenas utilize a rota de atualizar sua permissão naquele espaço.
+
+                Qualquer um pode criar um usuário.
+                Qualquer um pode criar um espaço.
+                Apenas um Administrador do espaço pode adicionar/atualizar as permissões de outro usuário
+                Apenas um Administrador ou o dono de uma questão pode apaga-la
+                Respostas não podem ser apagadas
+                Quando uma questão for deletada suas respostas serão deletadas automaticamente
+                Quando um espaço for deletado suas questões, repostas e as permissões/associações dos usuários com o espaço também serão deletados.
         
+        
+        USER
+                POST/user       -       cria usuário
+                        {
+                                "name"          : ""
+                                "email"         : ""
+                                "edv"           : ""
+                                "password"      : ""
+                        }
+                
+                GET/auth        -       valida usuário
+                        {
+                                "(name || edv || email)"        : ""
+                                "password"                      : ""
+                        }
+                
+                GET/user        -       faz consulta (default: page = 1, size = 10)
+                        /user?query=""&size=""&page=""
+                
+
+
+
+        
+ 

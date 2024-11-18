@@ -54,11 +54,11 @@ public class AnswerImplementation implements AnswerService {
             return List.of();
 
         if (answerRepository.count() < page * size)
-            if (answerRepository.count() > (page - 1) * size) {
+            if (answerRepository.count() > (page - 1) * size)
                 return answers.subList((page - 1) * size, (int)answerRepository.count());
-            } else {
+            else 
                 return null;
-            }
+            
         
         return answers.subList((page - 1) * size, page * size);
     }
