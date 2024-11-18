@@ -5,7 +5,7 @@ import com.example.demo.model.Space;
 import com.example.demo.model.User;
 
 public record answerDto(
-    String answer, Space space, User user, Question question
+    String answer, Long idSpace, Long idUser, Long idQuestion
 ) {
     
 }

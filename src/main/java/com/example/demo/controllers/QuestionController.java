@@ -44,7 +44,7 @@ public class QuestionController {
         Permission permission = permissionService.getByUserId(user.getId(), newQuestion.idSpace());
 
         if(permission == null || permission.getLevel() == 2)
-            return new ResponseEntity<>("Você não participa deste espaço!", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Permissão insuficiente!", HttpStatus.UNAUTHORIZED);
         
         if(questionService.create(newQuestion.question(), newQuestion.title(), newQuestion.idSpace(), user.getId()) == null)
             return new ResponseEntity<>("Erro", HttpStatus.BAD_REQUEST);
