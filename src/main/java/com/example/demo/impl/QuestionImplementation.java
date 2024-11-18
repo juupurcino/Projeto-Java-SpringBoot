@@ -27,16 +27,24 @@ public class QuestionImplementation implements QuestionService {
         if(questions.isEmpty())
             return null;
 
-        Integer start = (page-1) * size; 
-        Integer end = page * size;
-        if(start >= questions.size() || end >= questions.size() || start < 0 || end < 0)        //Para tratar caso o usuário tente acessar uma pagina inexistente
-            return null;
+        Integer totalPages = (questions.size() / size) + (questions.size() % size != 0 ? 1 : 0);
+        if(page <= 0 || size <= 0 || page > totalPages)
+            return List.of();
 
-        return questions.subList(start, end);
+        if (questionRepository.count() < page * size)
+            if (questionRepository.count() > (page - 1) * size) {
+                return questions.subList((page - 1) * size, (int)questionRepository.count());
+            } else {
+                return null;
+            }
+
+        return questions.subList((page - 1) * size, page * size);
     }
 
     @Override
     public Question getById(Long id) {
+        if(questionRepository.findById(id).isEmpty())
+            return null;
         return questionRepository.findById(id).get();
     }
 
@@ -62,7 +70,7 @@ public class QuestionImplementation implements QuestionService {
 
     @Override
     public boolean delete(Long id) {
-        if(questionRepository.findById(id) == null)
+        if(questionRepository.findById(id).isEmpty())
             return false;
         questionRepository.deleteById(id);
         return true;

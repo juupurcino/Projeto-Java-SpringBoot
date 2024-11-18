@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.model.Permission;
 import com.example.demo.model.Space;
-import com.example.demo.model.User;
+import com.example.demo.repositories.PermissionRepository;
 import com.example.demo.repositories.SpaceRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.SpaceService;
@@ -18,6 +18,9 @@ public class SpaceImplementation implements SpaceService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PermissionRepository permissionRepository;
 
     @Override
     public List<Space> get(String query, int page, int size) {
@@ -50,6 +53,7 @@ public class SpaceImplementation implements SpaceService {
         permission.setSpace(space);
         permission.setLevel(3);
         permission.setUser(userRepository.findById(userId).get());
+        permissionRepository.save(permission);
         
         return space;
     }

@@ -31,11 +31,11 @@ public class User {
     @Column
     private String edv;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Answer> answers = new HashSet<>();
+    // @OneToMany(mappedBy = "user")
+    // private Set<Answer> answers = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<Question> question = new HashSet<>();
+    // @OneToMany(mappedBy = "user")
+    // private Set<Question> question = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Permission> permission = new HashSet<>();
@@ -80,21 +80,21 @@ public class User {
         this.edv = edv;
     }
 
-    public Set<Answer> getAnswers() {
-        return answers;
-    }
+    // public Set<Answer> getAnswers() {
+    //     return answers;
+    // }
 
-    public void setAnswers(Set<Answer> answers) {
-        this.answers = answers;
-    }
+    // public void setAnswers(Set<Answer> answers) {
+    //     this.answers = answers;
+    // }
 
-    public Set<Question> getQuestion() {
-        return question;
-    }
+    // public Set<Question> getQuestion() {
+    //     return question;
+    // }
 
-    public void setQuestion(Set<Question> question) {
-        this.question = question;
-    }
+    // public void setQuestion(Set<Question> question) {
+    //     this.question = question;
+    // }
 
     public Set<Permission> getPermission() {
         return permission;
