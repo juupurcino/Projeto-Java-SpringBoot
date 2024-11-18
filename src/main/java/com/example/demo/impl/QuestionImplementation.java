@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.example.demo.model.Permission;
 import com.example.demo.model.Question;
 import com.example.demo.model.Space;
 import com.example.demo.model.User;
 import com.example.demo.repositories.AnswerRepository;
+import com.example.demo.repositories.PermissionRepository;
 import com.example.demo.repositories.QuestionRepository;
 import com.example.demo.repositories.SpaceRepository;
 import com.example.demo.repositories.UserRepository;
@@ -25,6 +27,8 @@ public class QuestionImplementation implements QuestionService {
     UserRepository userRepository;
     @Autowired
     AnswerRepository answerRepository;
+    @Autowired
+    PermissionRepository permissionRepository;
 
     @Override
     public List<Question> getBySpaceId(Long spaceId, int page, int size) {
@@ -82,5 +86,13 @@ public class QuestionImplementation implements QuestionService {
             return false;
         questionRepository.deleteById(id);
         return true;
-    }  
+    }
+
+    @Override
+    public Integer checkPermission(Long userId, Long spaceId) {
+        Permission permission = permissionRepository.findBySpaceIdSpaceAndUserId(spaceId, userId);
+        return permission.getLevel();
+    }
+
+    
 }

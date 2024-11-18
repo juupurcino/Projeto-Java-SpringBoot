@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,13 +10,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.Token;
 import com.example.demo.dto.questionDto;
 import com.example.demo.model.Question;
+import com.example.demo.model.User;
 import com.example.demo.services.QuestionService;
+import com.example.demo.services.UserService;
 
 @RestController
 @RequestMapping("/question")
@@ -23,6 +28,10 @@ public class QuestionController {
 
     @Autowired
     QuestionService questionService;
+    @Autowired
+    UserService userService;
+
+
     
     @PostMapping
     public ResponseEntity<String> createQuestion(@RequestBody questionDto newQuestion){
@@ -33,8 +42,11 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteQuestion(@PathVariable Long id){
-
+    public ResponseEntity<String> deleteQuestion(@PathVariable Long id, @RequestAttribute("token") Token token){
+        User user = userService.getById(token.getId());
+        if(!(questionService.checkPermission(user.getId(), questionService.getById(id).getSpace().getIdSpace()) == 1 || Objects.equals(questionService.getById(id).getUser().getId(), user.getId())))
+            return new ResponseEntity<>("Você não possui permissão suficiente", HttpStatus.UNAUTHORIZED);
+        
         if(!questionService.delete(id))
             return new ResponseEntity<>("Erro", HttpStatus.BAD_REQUEST);
         
