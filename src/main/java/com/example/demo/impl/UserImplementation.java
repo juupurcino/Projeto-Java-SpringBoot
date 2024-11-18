@@ -48,5 +48,10 @@ public class UserImplementation implements UserService{
         
         return users.subList((page - 1) * size, page * size);
     }
+
+    @Override
+    public User getById(Long id) {
+        return userRepository.findById(id).get();
+    }
     
 }

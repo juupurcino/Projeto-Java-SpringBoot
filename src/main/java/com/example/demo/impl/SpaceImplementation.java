@@ -7,9 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.model.Permission;
 import com.example.demo.model.Space;
 import com.example.demo.model.User;
+import com.example.demo.repositories.AnswerRepository;
+import com.example.demo.repositories.PermissionRepository;
+import com.example.demo.repositories.QuestionRepository;
 import com.example.demo.repositories.SpaceRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.SpaceService;
+
+import jakarta.transaction.Transactional;
 
 public class SpaceImplementation implements SpaceService {
 
@@ -18,6 +23,15 @@ public class SpaceImplementation implements SpaceService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PermissionRepository permissionRepository;
+
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    AnswerRepository answerRepository;
 
     @Override
     public List<Space> get(String query, int page, int size) {
@@ -48,18 +62,24 @@ public class SpaceImplementation implements SpaceService {
 
         Permission permission = new Permission();
         permission.setSpace(space);
-        permission.setLevel(3);
+        permission.setLevel(1);
         permission.setUser(userRepository.findById(userId).get());
+        permissionRepository.save(permission);
         
         return space;
     }
 
     @Override
+    @Transactional
     public boolean delete(Long id) {
-        if(spaceRepository.findById(id).isEmpty())
+        Space space = spaceRepository.findByIdSpace(id);
+        if(space == null)
             return false;
 
-        spaceRepository.deleteById(id);
+        permissionRepository.deleteAllBySpaceIdSpace(id);
+        questionRepository.deleteAllBySpaceIdSpace(id);
+        answerRepository.deleteAllBySpaceIdSpace(id);
+        spaceRepository.deleteByIdSpace(id);
         return true;
     }
 
@@ -69,6 +89,14 @@ public class SpaceImplementation implements SpaceService {
             return null;
         
         return spaceRepository.findById(id).get();
+    }
+
+    @Override
+    public Boolean checkAdm(Long userId, Long spaceId) {
+        Permission permission = permissionRepository.findBySpaceIdSpaceAndUserId(spaceId, userId);
+        if(permission == null)
+            return false;
+        return permission.getLevel() == 1;
     }
     
 }

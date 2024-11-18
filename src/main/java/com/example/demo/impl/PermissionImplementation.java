@@ -3,6 +3,8 @@ package com.example.demo.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.model.Permission;
+import com.example.demo.model.Space;
+import com.example.demo.model.User;
 import com.example.demo.repositories.PermissionRepository;
 import com.example.demo.repositories.SpaceRepository;
 import com.example.demo.repositories.UserRepository;
@@ -49,4 +51,22 @@ public class PermissionImplementation implements PermissionService {
         
         return !spaceRepository.findById(spaceId).isEmpty();
     }
+
+    @Override
+    public Boolean updatePermission(Integer level, Long idUser, Long idSpace) {
+        Permission permission = permissionRepository.findBySpaceIdSpaceAndUserId(idSpace, idUser);
+        Space space = spaceRepository.findByIdSpace(idSpace);
+        User user = userRepository.findById(idUser).get();
+
+        if(permission == null){
+            permission = new Permission();
+            permission.setSpace(space);
+            permission.setUser(user);
+        }
+        
+        permission.setLevel(level);
+        permissionRepository.save(permission);
+        return true;
+    }
+
 }

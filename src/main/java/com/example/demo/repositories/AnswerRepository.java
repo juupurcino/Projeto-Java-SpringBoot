@@ -8,4 +8,5 @@ import com.example.demo.model.Answer;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     List<Answer> findByQuestionId(Long id);
+    void deleteAllBySpaceIdSpace(Long id);
 }

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.Token;
 import com.example.demo.dto.spaceDto;
 import com.example.demo.model.Space;
+import com.example.demo.model.User;
 import com.example.demo.services.SpaceService;
+import com.example.demo.services.UserService;
 
 @RestController
 @RequestMapping("/spaces")
@@ -25,6 +27,8 @@ public class SpaceController {
 
     @Autowired
     SpaceService spaceService;
+    @Autowired
+    UserService userService;
     
     @PostMapping
     public ResponseEntity<String> createSpace(@RequestBody spaceDto newSpace){
@@ -35,8 +39,16 @@ public class SpaceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSpace(@PathVariable String id){
-        if(spaceService.delete(Long.valueOf(id)))
+    public ResponseEntity<String> deleteSpace(@PathVariable Long id, @RequestAttribute("token") Token token){
+        User user = userService.getById(token.getId());
+
+        if(spaceService.getById(id) == null)
+            return new ResponseEntity<>("Este espaço não existe", HttpStatus.UNAUTHORIZED);
+
+        if(!spaceService.checkAdm(user.getId(), id))
+            return new ResponseEntity<>("Você não possui permissão para deletar esse espaço", HttpStatus.UNAUTHORIZED);
+
+        if(!spaceService.delete(id))
             return new ResponseEntity<>("Erro", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>("Espaço deletado com sucesso", HttpStatus.OK);

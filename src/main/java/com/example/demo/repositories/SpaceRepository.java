@@ -9,4 +9,6 @@ import com.example.demo.model.Space;
 public interface SpaceRepository extends JpaRepository<Space, Long> {
     
     List<Space> findByNameContaining(String name);
+    void deleteByIdSpace(Long id);
+    Space findByIdSpace(Long id);
 } 

@@ -10,6 +10,7 @@ import com.example.demo.impl.CriptImplementation;
 import com.example.demo.impl.JwtImplementation;
 import com.example.demo.impl.LoginImplementation;
 import com.example.demo.impl.PassImplementation;
+import com.example.demo.impl.PermissionImplementation;
 import com.example.demo.impl.QuestionImplementation;
 import com.example.demo.impl.SpaceImplementation;
 import com.example.demo.impl.UserImplementation;
@@ -18,6 +19,7 @@ import com.example.demo.services.CriptService;
 import com.example.demo.services.JWTService;
 import com.example.demo.services.LoginService;
 import com.example.demo.services.PassService;
+import com.example.demo.services.PermissionService;
 import com.example.demo.services.QuestionService;
 import com.example.demo.services.SpaceService;
 import com.example.demo.services.UserService;
@@ -80,5 +82,11 @@ public class DependencyConfiguration {
     @Scope("singleton")
     public AnswerService answerService(){
         return new AnswerImplementation();
+    }
+
+    @Bean
+    @Scope("singleton")
+    public PermissionService permissionService(){
+        return new PermissionImplementation();
     }
 }
