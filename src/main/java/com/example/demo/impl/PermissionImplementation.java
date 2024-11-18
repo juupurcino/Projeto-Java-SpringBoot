@@ -69,4 +69,9 @@ public class PermissionImplementation implements PermissionService {
         return true;
     }
 
+    @Override
+    public Permission getByUserId(Long idUser, Long idSpace) {
+        return permissionRepository.findByUserIdAndSpaceIdSpace(idUser, idSpace);
+    }
+
 }

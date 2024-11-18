@@ -9,5 +9,7 @@ public interface PermissionService {
     boolean validatePermission (int level, Long userId, Long spaceId);
 
     Boolean updatePermission(Integer level, Long idUser, Long idSpace);
+
+    Permission getByUserId(Long idUser, Long idSpace);
     
 }

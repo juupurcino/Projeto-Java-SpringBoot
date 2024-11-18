@@ -27,8 +27,6 @@ public class AnswerImplementation implements AnswerService {
 
     @Override
     public Answer create(Long questionId, String answer, Long userId) {
-        System.out.println(questionId);
-        System.out.println(userId);
         if (userRepository.findById(userId).isEmpty())
             return null;
         

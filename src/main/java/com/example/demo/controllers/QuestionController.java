@@ -9,13 +9,19 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.Token;
 import com.example.demo.dto.questionDto;
+import com.example.demo.model.Permission;
 import com.example.demo.model.Question;
+import com.example.demo.model.User;
+import com.example.demo.services.PermissionService;
 import com.example.demo.services.QuestionService;
+import com.example.demo.services.UserService;
 
 @RestController
 @RequestMapping("/question")
@@ -23,10 +29,20 @@ public class QuestionController {
 
     @Autowired
     QuestionService questionService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    PermissionService permissionService;
     
     @PostMapping
-    public ResponseEntity<String> createQuestion(@RequestBody questionDto newQuestion){
-        if(questionService.create(newQuestion.question(), newQuestion.title(), newQuestion.space().getIdSpace(), newQuestion.user().getId()) == null)
+    public ResponseEntity<String> createQuestion(@RequestBody questionDto newQuestion, @RequestAttribute("token") Token token){
+        User user = userService.getById(token.getId());
+        Permission permission = permissionService.getByUserId(user.getId(), newQuestion.idSpace());
+
+        if(permission == null || permission.getLevel() == 2)
+            return new ResponseEntity<>("Você não participa deste espaço!", HttpStatus.UNAUTHORIZED);
+        
+        if(questionService.create(newQuestion.question(), newQuestion.title(), newQuestion.idSpace(), user.getId()) == null)
             return new ResponseEntity<>("Erro", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>("Questão criada com sucesso", HttpStatus.OK);
