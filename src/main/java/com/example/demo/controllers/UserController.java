@@ -46,17 +46,14 @@ public class UserController {
         if(!passService.verify(data.password()))
             return new ResponseEntity<>("Invalid Password", HttpStatus.BAD_REQUEST);
         
-        userService.create(
+        User user = userService.create(
             data.name(),
             data.email(),
             data.edv(), 
             data.password()
         );
-        
-        List<User> users = userService.get(data.email(), 1, 1);
-        User user = users.get(0);
 
-        if(users == null || users.isEmpty())
+        if(user == null)
             return new ResponseEntity<>("Internal Error", HttpStatus.INTERNAL_SERVER_ERROR);
 
 

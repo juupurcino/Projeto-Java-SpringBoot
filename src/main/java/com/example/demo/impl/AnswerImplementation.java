@@ -51,7 +51,7 @@ public class AnswerImplementation implements AnswerService {
 
         Integer start = (page-1) * size; 
         Integer end = page * size;
-        if(start >= answers.size() || end >= answers.size() || start < 0 || end < 0)        //Para tratar caso o usuário tente acessar uma pagina inexistente
+        if(start > answers.size() || end > answers.size() || start < 0 || end < 0)        //Para tratar caso o usuário tente acessar uma pagina inexistente
             return null;
         
         return answers.subList(start, end);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.model.Permission;
 import com.example.demo.model.Space;
+import com.example.demo.model.User;
 import com.example.demo.repositories.SpaceRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.SpaceService;
@@ -20,13 +21,19 @@ public class SpaceImplementation implements SpaceService {
 
     @Override
     public List<Space> get(String query, int page, int size) {
-        if (spaceRepository.count() < page * size) {
+        List<Space> spaces;
+
+        if(query == null)
+            spaces = spaceRepository.findAll();
+        else
+            spaces = spaceRepository.findByNameContaining(query);
+        
+        if (spaceRepository.count() < page * size)
             if (spaceRepository.count() > (page - 1) * size)
-                return spaceRepository.findByNameContaining(query).subList((page - 1) * size, (int)spaceRepository.count());
+                return spaces.subList((page - 1) * size, (int)spaceRepository.count());
             else
                 return null;
-        }
-        return spaceRepository.findByNameContaining(query).subList((page - 1) * size, page * size);
+        return spaces.subList((page - 1) * size, page * size);
     }
 
     @Override
