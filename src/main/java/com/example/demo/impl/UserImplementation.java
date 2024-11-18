@@ -37,7 +37,7 @@ public class UserImplementation implements UserService{
         else
             users = userRepository.searchUser(query);
         Integer totalPages = (users.size() / size) + (users.size() % size != 0 ? 1 : 0);
-        if(size > users.size() || page <= 0 || size <= 0 || page > totalPages)
+        if(page <= 0 || size <= 0 || page > totalPages)
             return List.of();
         
         if (userRepository.count() < page * size)
