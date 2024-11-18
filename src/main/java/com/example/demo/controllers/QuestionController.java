@@ -21,7 +21,6 @@ import com.example.demo.model.Permission;
 import com.example.demo.model.Question;
 import com.example.demo.model.User;
 import com.example.demo.services.PermissionService;
-import com.example.demo.model.User;
 import com.example.demo.services.QuestionService;
 import com.example.demo.services.UserService;
 

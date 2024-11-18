@@ -1,14 +1,10 @@
 package com.example.demo.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,15 +26,6 @@ public class User {
     
     @Column
     private String edv;
-
-    // @OneToMany(mappedBy = "user")
-    // private Set<Answer> answers = new HashSet<>();
-
-    // @OneToMany(mappedBy = "user")
-    // private Set<Question> question = new HashSet<>();
-
-    // @OneToMany(mappedBy = "user")
-    // private Set<Permission> permission = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -79,29 +66,4 @@ public class User {
     public void setEdv(String edv) {
         this.edv = edv;
     }
-
-    // public Set<Answer> getAnswers() {
-    //     return answers;
-    // }
-
-    // public void setAnswers(Set<Answer> answers) {
-    //     this.answers = answers;
-    // }
-
-    // public Set<Question> getQuestion() {
-    //     return question;
-    // }
-
-    // public void setQuestion(Set<Question> question) {
-    //     this.question = question;
-    // }
-
-    // public Set<Permission> getPermission() {
-    //     return permission;
-    // }
-
-    // public void setPermission(Set<Permission> permission) {
-    //     this.permission = permission;
-    // }
-    
 }
