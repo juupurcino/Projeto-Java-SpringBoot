@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.model.Permission;
 import com.example.demo.model.Space;
-import com.example.demo.model.User;
+import com.example.demo.repositories.PermissionRepository;
 import com.example.demo.repositories.AnswerRepository;
 import com.example.demo.repositories.PermissionRepository;
 import com.example.demo.repositories.QuestionRepository;

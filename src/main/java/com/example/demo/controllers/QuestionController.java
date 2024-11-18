@@ -33,8 +33,9 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteQuestion(@PathVariable String id){
-        if(questionService.delete(Long.valueOf(id)))
+    public ResponseEntity<String> deleteQuestion(@PathVariable Long id){
+
+        if(!questionService.delete(id))
             return new ResponseEntity<>("Erro", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>("Questão deletada com sucesso", HttpStatus.OK);
@@ -56,7 +57,7 @@ public class QuestionController {
         return new ResponseEntity<>(space, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable Long id){
         var question = questionService.getById(id);
 
