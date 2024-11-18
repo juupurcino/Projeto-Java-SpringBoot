@@ -27,6 +27,8 @@ public class AnswerImplementation implements AnswerService {
 
     @Override
     public Answer create(Long questionId, String answer, Long userId) {
+        System.out.println(questionId);
+        System.out.println(userId);
         if (userRepository.findById(userId).isEmpty())
             return null;
         
@@ -49,12 +51,18 @@ public class AnswerImplementation implements AnswerService {
         if(answers.isEmpty())
             return null;
 
-        Integer start = (page-1) * size; 
-        Integer end = page * size;
-        if(start > answers.size() || end > answers.size() || start < 0 || end < 0)        //Para tratar caso o usuário tente acessar uma pagina inexistente
-            return null;
+        Integer totalPages = (answers.size() / size) + (answers.size() % size != 0 ? 1 : 0);
+        if(page <= 0 || size <= 0 || page > totalPages)
+            return List.of();
+
+        if (answerRepository.count() < page * size)
+            if (answerRepository.count() > (page - 1) * size) {
+                return answers.subList((page - 1) * size, (int)answerRepository.count());
+            } else {
+                return null;
+            }
         
-        return answers.subList(start, end);
+        return answers.subList((page - 1) * size, page * size);
     }
     
 }

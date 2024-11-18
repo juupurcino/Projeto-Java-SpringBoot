@@ -1,8 +1,5 @@
 package com.example.demo.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,8 +23,8 @@ public class Question {
     @Column
     private String title;
     
-    @OneToMany(mappedBy = "question")
-    private Set<Answer> answers = new HashSet<>();
+    // @OneToMany(mappedBy = "question")
+    // private Set<Answer> answers = new HashSet<>();
     
     @ManyToOne
     @JoinColumn(name = "idSpace")
@@ -54,13 +50,13 @@ public class Question {
         this.question = question;
     }
     
-    public Set<Answer> getAnswers() {
-        return answers;
-    }
+    // public Set<Answer> getAnswers() {
+    //     return answers;
+    // }
     
-    public void setAnswers(Set<Answer> answers) {
-        this.answers = answers;
-    }
+    // public void setAnswers(Set<Answer> answers) {
+    //     this.answers = answers;
+    // }
     
     public Space getSpace() {
         return space;

@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.model.Question;
 import com.example.demo.model.Space;
 import com.example.demo.model.User;
+import com.example.demo.repositories.AnswerRepository;
 import com.example.demo.repositories.QuestionRepository;
 import com.example.demo.repositories.SpaceRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.QuestionService;
+
+import jakarta.transaction.Transactional;
 
 public class QuestionImplementation implements QuestionService {
 
@@ -20,6 +23,8 @@ public class QuestionImplementation implements QuestionService {
     SpaceRepository spaceRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    AnswerRepository answerRepository;
 
     @Override
     public List<Question> getBySpaceId(Long spaceId, int page, int size) {
@@ -68,8 +73,11 @@ public class QuestionImplementation implements QuestionService {
         return new_question;
     }
 
+    @Transactional
     @Override
     public boolean delete(Long id) {
+        answerRepository.deleteByQuestionId(id);
+
         if(questionRepository.findById(id).isEmpty())
             return false;
         questionRepository.deleteById(id);
