@@ -59,7 +59,8 @@ public class QuestionImplementation implements QuestionService {
 
     @Override
     public Question create(String question, String title, Long spaceId, Long userId) {
-        Space space = spaceRepository.findById(userId).get();
+        Space space = spaceRepository.findById(spaceId).get();
+
         if(space == null)
             return null;
 

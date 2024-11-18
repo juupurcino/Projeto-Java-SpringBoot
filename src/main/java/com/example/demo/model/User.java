@@ -37,8 +37,8 @@ public class User {
     // @OneToMany(mappedBy = "user")
     // private Set<Question> question = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<Permission> permission = new HashSet<>();
+    // @OneToMany(mappedBy = "user")
+    // private Set<Permission> permission = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -96,12 +96,12 @@ public class User {
     //     this.question = question;
     // }
 
-    public Set<Permission> getPermission() {
-        return permission;
-    }
+    // public Set<Permission> getPermission() {
+    //     return permission;
+    // }
 
-    public void setPermission(Set<Permission> permission) {
-        this.permission = permission;
-    }
+    // public void setPermission(Set<Permission> permission) {
+    //     this.permission = permission;
+    // }
     
 }
