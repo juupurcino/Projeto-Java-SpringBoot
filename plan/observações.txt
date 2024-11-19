@@ -77,7 +77,7 @@ Fernando e Cristian
                 
 
                         GET/spaces/{spaces}?page=""&size=""
-                                por hora não entendi muito bem o que é isso
+                                retorna uma lista de todas as questões com base no id de um espaço
                         
 
                         GET/spaces/id/{id}

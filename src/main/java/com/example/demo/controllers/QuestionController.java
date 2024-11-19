@@ -68,19 +68,19 @@ public class QuestionController {
     }
 
     @GetMapping("/{spaces}")
-    public ResponseEntity<List<Question>> getQuestionbySpace(@PathVariable Long spaces, Integer page, Integer size){
+    public ResponseEntity<List<Question>> getQuestionbySpace(@PathVariable Long spaceId, Integer page, Integer size){
         if(page == null)
             page = 1;
         
         if(size == null)
             size = 10;
         
-        var space = questionService.getBySpaceId(spaces, page, size);
+        List<Question> questions = questionService.getBySpaceId(spaceId, page, size);
 
-        if(space == null)
+        if(questions == null)
             return ResponseEntity.badRequest().build();
         
-        return new ResponseEntity<>(space, HttpStatus.OK);
+        return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
     @GetMapping("/id/{id}")

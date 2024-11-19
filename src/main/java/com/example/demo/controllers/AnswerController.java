@@ -55,7 +55,7 @@ public class AnswerController {
             size = 10;
 
         if(question == null)
-            return new ResponseEntity<>("Missing arguments", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(List.of(), HttpStatus.BAD_REQUEST);
 
         var answers = answerService.get(question, page, size);
 
