@@ -22,10 +22,10 @@ a {
 .nav-link {
     padding: 0 !important;
 }
-
+/* 
 #highlight-title {
     font-weight: 700;
     background: linear-gradient(to right, #ff0000, #cc13ad, #511dcc, #198cce); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
+} */

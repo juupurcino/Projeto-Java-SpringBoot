@@ -1,11 +1,13 @@
 #logoImage {
     mix-blend-mode: multiply;
-    width: 180px;
-    height: 200px;
+    width: 35px;
+    height: 40px;
 }
 
 #searchBar {
-    width: 1200px;
+    width: 580px;
+    justify-self: center;
+    align-self: center;
 }
 
 #createSpaceText {
@@ -20,5 +22,20 @@
 }
 
 #cardsContainer {
-    left
+    display: flex;
+    margin-left: 55px;
+    justify-content: start;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.square {
+    position: absolute;
+    bottom: -1px;
+    background-color: #1A6EED;
+    width: 20px;
+    left: -8px;
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
