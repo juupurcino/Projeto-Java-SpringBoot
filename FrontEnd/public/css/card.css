@@ -1,0 +1,19 @@
+main {
+    gap: 50px;
+}
+
+#cards {
+    gap: 40px;
+    margin-top: 1%;
+    height: 5%;
+    margin-bottom: 5%;
+}
+
+.card {
+    height: 356px ;
+}
+
+.card-img-top {
+    border-radius: 16px;
+    min-height: 196px;
+}
