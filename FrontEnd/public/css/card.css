@@ -1,16 +1,16 @@
 main {
-    gap: 50px;
+    gap: 20px;
 }
 
 #cards {
-    gap: 40px;
+    gap: 50px;
     margin-top: 1%;
     height: 5%;
     margin-bottom: 5%;
 }
 
 .card {
-    height: 356px ;
+    height: 200px ;
 }
 
 .card-img-top {
