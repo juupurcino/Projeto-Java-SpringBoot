@@ -23,3 +23,8 @@ main {
 #logo{
     width: 60px;
 }
+
+
+.mandatory-check {
+    color: rgb(185, 15, 15);
+}
