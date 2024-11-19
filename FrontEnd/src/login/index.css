@@ -3,7 +3,7 @@ img {
 }
 
 body {
-    background-image: url("../../public/img/Bosch_Zuender_Online_3200x1800__LWW.jpg");
+    background-image: url("../../public/assets/Bosch_Zuender_Online_3200x1800__LWW.jpg");
     background-color: #cccccc;
     width: 100%;
     height: 100vh;
@@ -18,4 +18,8 @@ main {
 
 #psHelp {
     cursor: pointer;
+}
+
+#logo{
+    width: 60px;
 }
