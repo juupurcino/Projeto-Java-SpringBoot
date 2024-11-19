@@ -1,7 +1,11 @@
 # Equipe-2
 Fernando e Cristian
                 Todos os modelos utilizam Id com o nome "Id", menos o "Space", lá se chama "idSpace".
-                A ordem de permissões foi nos passado da seguinte maneira: 1-Administrador, 2-Apenas leitor, 3-Participante do espaço.
+                A ordem de permissões foi nos passado da seguinte maneira: 
+                        1-Administrador
+                        2-Apenas leitor
+                        3-Participante do espaço.
+                
                 Adicionar um usuário a um espaço e dar permissão fazem a mesma coisa, por isso não há uma rota para cada, quando for   
         adicionar um novo usuário ao espaço apenas utilize a rota de atualizar sua permissão naquele espaço.
 
@@ -14,26 +18,95 @@ Fernando e Cristian
                 Quando um espaço for deletado suas questões, repostas e as permissões/associações dos usuários com o espaço também serão deletados.
         
         
+
+
         USER
-                POST/user       -       cria usuário
-                        {
-                                "name"          : ""
-                                "email"         : ""
-                                "edv"           : ""
-                                "password"      : ""
-                        }
+                        POST/user
+                                {
+                                        "name"          : "user name"
+                                        "email"         : "user email"
+                                        "edv"           : "user edv"
+                                        "password"      : "Password1234"
+                                }
+                        
+
+                        GET/auth
+                                {
+                                        "(name || edv || email)"        : ""
+                                        "password"                      : ""
+                                }
+                        
+
+                        GET/user?query=""&size=""&page=""
+                                consulta (default: page = 1, size = 10, query=none)
                 
-                GET/auth        -       valida usuário
-                        {
-                                "(name || edv || email)"        : ""
-                                "password"                      : ""
-                        }
+        
+
+        SPACE
+                        POST/spaces
+                                {
+                                        "name"          :       "nome da sala"      
+                                        "qtdUsers"      :       "quantidade de usuários"
+                                }
+                        
+
+                        DELETE/spaces/{id}
+                                deleta um espaço com base no seu id, apenas um administrador tem permissão para isso
+
+
+                        GET/spaces?query=""&size=""&page=""
+                                consulta (default: page = 1, size = 10, query=none)
+                        
+
+                        GET/spaces/{id}
+                                consulta um espaço em específico com base no seu id
+
+
+
+        QUESTION
+                        POST/question
+                                {
+                                        "question"      :       "pergunta"
+                                        "title"         :       "titulo da pergunta"
+                                        "idSpace"       :       "id do espaço que será postada"
+                                }
+
+
+                        DELETE/question/{id}
+                                deleta uma pergunta com base no seu id
                 
-                GET/user        -       faz consulta (default: page = 1, size = 10)
-                        /user?query=""&size=""&page=""
+
+                        GET/spaces/{spaces}?page=""&size=""
+                                por hora não entendi muito bem o que é isso
+                        
+
+                        GET/spaces/id/{id}
+                                retorna um espaço através do seu id
                 
 
 
+        ANSWER
+                        POST/answer
+                                {
+                                        "answer"        :       "resposta"
+                                        "idSpace"       :       "id do espaço que será postada"
+                                        "idQuestion"    :       "id da pergunta a qual está respondendo"
+                                }
+                        
+
+                        GET/answer/{question}?page=""&size=""
+                                consulta todas as respostas com base no id de uma pergunta
+                                (default: page = 1, size = 10)
+                
+
+
+        PERMISSION
+                        POST/permission
+                                {
+                                        "idSpace"       :       "id do espaço que o usuário participa"
+                                        "idUser"        :       "id do usuário que terá seu id atualizado"
+                                        "level"         :       "novo nivel de permissão que o usuário terá"
+                                }
 
         
  
