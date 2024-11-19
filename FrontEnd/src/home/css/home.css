@@ -3,3 +3,22 @@
     width: 180px;
     height: 200px;
 }
+
+#searchBar {
+    width: 1200px;
+}
+
+#createSpaceText {
+    color: #1A6EED;
+    text-decoration: underline;
+}
+
+#divisionLine {
+    width: 1200px;
+    justify-self: center;
+    align-self: center;
+}
+
+#cardsContainer {
+    left
+}
