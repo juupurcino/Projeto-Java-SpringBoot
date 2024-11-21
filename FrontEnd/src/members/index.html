@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="img/bosch-symbol.png">
+
+    <link rel="icon" href="/FrontEnd//src/home/js/home.js">
+
+    <!-- LINK BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+   
+    <!-- ESTILIZAÇÃO GERAL -->
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/header.css">
+    <link rel="stylesheet" href="../../public/css/card.css">
+    <link rel="stylesheet" href="index.css">
+    
+    <title>Página Inicial</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous" defer></script>
+</head>
+<body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newSpace" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Criar Nova Pergunta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-flex flex-column gap-4">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Título da pergunta</label>
+                      <input id="tituloPergunta" class="form-control" placeholder="Digite aqui um breve título para a sua pergunta...">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Corpo da pergunta</label>
+                        <input id="tituloPergunta"  class="form-control" placeholder="Descreva aqui em detalhes sua pergunta...">
+                      </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Criar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar navbar-expand-mg">
+            <div class="container-fluid d-flex justify-content-around align-items-center">
+                <div class="d-flex flex-row align-items-center justify-content-around gap-3">
+                    <img id="logoImage" class="mb-3" src="/FrontEnd/public/assets/logo.png" alt="Logo">
+                    <a class="d-flex gap-2" href="/FrontEnd/src/home/index.html">  <!-- Aqui vai mandar para o espaço -->
+                        <h4>Bosch Overflow</h4> 
+                    </a>
+                </div>
+                <input type="text" id="searchBar" class="form-control mb-2" placeholder="Pesquise um espaço..." aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </nav>
+    </header>
+
+    <!-- Basicamente aqui vamos ter todos os espaços que a pessoa participa -->
+    <main class="d-flex flex-column main-container">
+    
+        <div class="d-flex flex-column justify-content-center align-items-center">
+
+            <div class="d-flex justify-content-around w-100 align-items-center">
+                <h2 class="mb-5 mt-5">{nome do espaço}</h2>
+                <div class="d-flex gap-3">
+                    <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Nova Pergunta</button>
+                    <button type="button" class="btn btn-secondary h-50"><a class="text-white" href="../members/">Ver Membros</a></button>
+                </div>
+            </div>
+            <div id="userContainer" class="d-flex justify-content-center w-100  gap-5 align-items-center flex-wrap">   <!-- userContainer: PARA RENDERIZAR os membros DO ESPAÇO -->
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="my-5">                                                                  <!-- PARA PAGINAÇÃO -->
+                <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    </ul>
+                  </nav>
+            </div>
+        </div>
+        <img src="img/bosch-line.png" class="fixed-bottom" alt="">
+    </main>
+</body>
+</html>
