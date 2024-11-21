@@ -47,7 +47,7 @@
             <img src="../../public/assets/logo.png" id="logo" alt="">
             <h5 class="my-4">BoschOverflow</h5>
             <h5 class="my-5">Crie sua conta 😊</h5>
-            <form class="w-100">
+            <form class="w-100" id="userForm" name="userForm">
                 <div class="mb-3 col">
                     <label for="name-input" class="form-label fw-medium">Name<span class="mandatory-check"> *</span></label>
                     <input type="text" class="form-control" id="name-input">                                                            <!-- ID DO INPUT DO NOME -->
@@ -59,7 +59,7 @@
                     </div>
                     <div class="mb-3 col">
                           <label for="exampleInputPassword1" class="form-label fw-medium">Confirme sua senha<span class="mandatory-check"> *</span></label>
-                          <input type="password" class="form-control" id="password-input">                                              <!-- ID DO INPUT DA SENHA CONFIRMAÇÃO -->
+                          <input type="password" class="form-control" id="password-inputConfirmation">                                              <!-- ID DO INPUT DA SENHA CONFIRMAÇÃO -->
                     </div>
                 </div>
                 <div class="row">                    
@@ -85,5 +85,8 @@
         </div>
         <!-- <img src="../../public/img/line.png"  class="fixed-bottom" alt=""> -->
     </main>
+
+    <script src="scripts/createAccount.js"></script>
+
 </body>
 </html>
