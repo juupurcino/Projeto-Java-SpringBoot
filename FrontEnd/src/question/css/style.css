@@ -1,0 +1,48 @@
+#logoImage {
+    mix-blend-mode: multiply;
+    width: 35px;
+    height: 40px;
+}
+
+#searchBar {
+    width: 580px;
+    justify-self: center;
+    align-self: center;
+}
+
+#divisionLine {
+    width: 1200px;
+    justify-self: center;
+    align-self: center;
+}
+
+
+.card {
+    margin-top: 20px;
+}
+
+.upvote {
+    display: flex;
+    position: absolute;
+    top: 22%;
+    right: 1150px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.upCircle {
+    background-color: grey;
+    height: fit-content;
+    padding: 2px;
+    border-radius: 999px;
+}
+
+.downCircle {
+    background-color: grey;
+    height: fit-content;
+    position: relative;
+    padding: 2px;
+    border-radius: 999px;
+    bottom: 8px;
+}
