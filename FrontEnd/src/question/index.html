@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="img/bosch-symbol.png">
+
+    <link rel="icon" href="/FrontEnd//src/home/js/home.js">
+
+    <!-- LINK BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+   
+    <!-- ESTILIZAÇÃO GERAL -->
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/header.css">
+    <link rel="stylesheet" href="../../public/css/card.css">
+    <link rel="stylesheet" href="css/home.css">
+    
+    <title>Página Inicial</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous" defer></script>
+</head>
+<body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newSpace" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Fazer nova pergunta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="exampleSpace" class="form-label fw-medium">Título do Espaço</label>
+                <input type="text" class="form-control" id="spaceTitle">  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Criar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar navbar-expand-mg">
+            <div class="container-fluid d-flex justify-content-around align-items-center">
+                <div class="d-flex flex-row align-items-center justify-content-around gap-3">
+                    <img id="logoImage" class="mb-3" src="/FrontEnd/public/assets/logo.png" alt="Logo">
+                    <a class="d-flex gap-2" href="/FrontEnd/src/home/index.html">  <!-- Aqui vai mandar para o espaço -->
+                        <h4>Bosch Overflow</h4> 
+                    </a>
+                </div>
+                <input type="text" id="searchBar" class="form-control mb-2" placeholder="Pesquise um espaço..." aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </nav>
+    </header>
+
+    <!-- Basicamente aqui vamos ter todos os espaços que a pessoa participa -->
+    <main class="d-flex flex-column main-container">
+    
+        <div class="d-flex flex-column justify-content-center align-items-center">
+
+            <div class="d-flex justify-content-around w-100 align-items-center">
+                <h2 class="mb-5 mt-5">Seus Espaços 😀</h2>
+                <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Criar Espaço</button>
+            </div>
+
+
+            <div class="d-flex justify-content-center align-items-center">
+                <div id="cardsContainer" class="d-flex container p-2 flex-row flex-wrap justify-content-start align-items-center row row-cols-4 gap-3">
+
+                    <div class="row d-flex flex-wrap gap-3 align-items-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                <a href="">
+                                    <p class="card-text">Nome do Espaço</p>
+                                </a>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+    
+                    <div class="row d-flex flex-wrap gap-3 align-items-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                <a href="">
+                                    <p class="card-text">Nome do Espaço</p>
+                                </a>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+    
+                    <div class="row d-flex flex-wrap gap-3 align-items-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                <a href="">
+                                    <p class="card-text">Nome do Espaço</p>
+                                </a>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+    
+                    <div class="row d-flex flex-wrap gap-3 align-items-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                <a href="">
+                                    <p class="card-text">Nome do Espaço</p>
+                                </a>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+    
+                    <div class="row d-flex flex-wrap gap-3 align-items-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                <a href="">
+                                    <p class="card-text">Nome do Espaço</p>
+                                </a>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+    
+                    <div class="row d-flex flex-wrap gap-3 align-items-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                <a href="">
+                                    <p class="card-text">Nome do Espaço</p>
+                                </a>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+    
+                    <div class="row d-flex flex-wrap gap-3 align-items-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                <a href="">
+                                    <p class="card-text">Nome do Espaço</p>
+                                </a>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <img src="img/bosch-line.png" class="fixed-bottom" alt="">
+    </main>
+</body>
+</html>

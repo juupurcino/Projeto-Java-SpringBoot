@@ -1,0 +1,41 @@
+#logoImage {
+    mix-blend-mode: multiply;
+    width: 35px;
+    height: 40px;
+}
+
+#searchBar {
+    width: 580px;
+    justify-self: center;
+    align-self: center;
+}
+
+#createSpaceText {
+    color: #1A6EED;
+    text-decoration: underline;
+}
+
+#divisionLine {
+    width: 1200px;
+    justify-self: center;
+    align-self: center;
+}
+
+#cardsContainer {
+    display: flex;
+    margin-left: 55px;
+    justify-content: start;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.square {
+    position: absolute;
+    bottom: -1px;
+    background-color: #1A6EED;
+    width: 20px;
+    left: -8px;
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
