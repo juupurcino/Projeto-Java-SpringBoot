@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Token;
@@ -30,8 +31,13 @@ public class SpaceController {
     SpaceService spaceService;
     @Autowired
     UserService userService;
-    
-    @CrossOrigin(origins = "http://127.0.0.1:5500")
+
+    // CORS para POST, GET, DELETE e OPTIONS
+    @CrossOrigin(
+        origins = "http://127.0.0.1:5500", 
+        allowedHeaders = "*", 
+        methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
+    )
     @PostMapping
     public ResponseEntity<String> createSpace(@RequestBody spaceDto newSpace, @RequestAttribute("token") Token token){
         User user = userService.getById(token.getId());
@@ -41,6 +47,11 @@ public class SpaceController {
         return new ResponseEntity<>("Espaço criado com sucesso", HttpStatus.OK);
     }
 
+    @CrossOrigin(
+    origins = "http://127.0.0.1:5500", 
+    allowedHeaders = "*", 
+    methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
+)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSpace(@PathVariable Long id, @RequestAttribute("token") Token token){
         User user = userService.getById(token.getId());
@@ -56,7 +67,12 @@ public class SpaceController {
         
         return new ResponseEntity<>("Espaço deletado com sucesso", HttpStatus.OK);
     }
-
+    
+    @CrossOrigin(
+    origins = "http://127.0.0.1:5500", 
+    allowedHeaders = "*", 
+    methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
+)
     @GetMapping
     public ResponseEntity<List<Space>> getSpaces(String query, Integer page, Integer size){
         if(page == null)
