@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../../public/css/global.css">
     <link rel="stylesheet" href="../../public/css/header.css">
     <link rel="stylesheet" href="../../public/css/card.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/style.css">
     
     <title>Página Inicial</title>
 
@@ -29,16 +29,16 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Fazer nova pergunta</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Nova Resposta</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label for="exampleSpace" class="form-label fw-medium">Título do Espaço</label>
+                <label for="exampleSpace" class="form-label fw-medium">Texto da Resposta</label>
                 <input type="text" class="form-control" id="spaceTitle">  
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Criar</button>
+                <button type="button" class="btn btn-primary">Responder</button>
             </div>
         </div>
         </div>
@@ -64,96 +64,101 @@
         <div class="d-flex flex-column justify-content-center align-items-center">
 
             <div class="d-flex justify-content-around w-100 align-items-center">
-                <h2 class="mb-5 mt-5">Seus Espaços 😀</h2>
-                <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Criar Espaço</button>
+                <h2 class="mb-5 mt-5"></h2>
+                <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Nova Resposta</button>
             </div>
 
 
             <div class="d-flex justify-content-center align-items-center">
-                <div id="cardsContainer" class="d-flex container p-2 flex-row flex-wrap justify-content-start align-items-center row row-cols-4 gap-3">
+                <div id="cardsContainer" class="d-flex container flex-column">
 
-                    <div class="row d-flex flex-wrap gap-3 align-items-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                <a href="">
-                                    <p class="card-text">Nome do Espaço</p>
-                                </a>
+                    <h2>Pergunta</h2>
+                    
+                        
+                    <div id="cardContainer" class="d-flex justify-content-center w-100 flex-column align-items-center">                <!-- cardsContainer: PARA RENDERIZAR AS PRGUNTAS DO ESPAÇO -->
+
+                        <!-- COMPONENTE DO CARD -->
+                        <div class="card w-100 h-25" idPergunta=2>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
+                            <div class="card-body">
+                              <h5 class="card-title">{Nome do Usuário}</h5>
+                              <p class="card-text">{Texto da Pergunta}</p>
                             </div>
-                            <div class="square"></div>
+                        </div>
+        
+                    </div>
+                    
+
+                    <h2 class="mt-4">Respostas</h2>
+
+                    <div class="d-flex justify-content-between flex-row relative" style="position: relative;">
+                        <div class="upvote">
+                            <button class="upCircle">
+                                🔼
+                            </button>
+                            <p class="mb-2">
+                                0
+                            </p>
+                            <button class="downCircle">
+                                🔽
+                            </button>
+                        </div>
+                        <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
+                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
+                                <div class="card-body">
+                                    <h5 class="card-title">{Nome do Usuário}</h5>
+                                    <p class="card-text">{Texto da Resposta}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-    
-                    <div class="row d-flex flex-wrap gap-3 align-items-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                <a href="">
-                                    <p class="card-text">Nome do Espaço</p>
-                                </a>
+
+                    <div class="d-flex justify-content-between flex-row relative" style="position: relative;">
+                        <div class="upvote">
+                            <button class="upCircle">
+                                🔼
+                            </button>
+                            <p class="mb-2">
+                                0
+                            </p>
+                            <button class="downCircle">
+                                🔽
+                            </button>
+                        </div>
+                        <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
+                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
+                                <div class="card-body">
+                                    <h5 class="card-title">{Nome do Usuário}</h5>
+                                    <p class="card-text">{Texto da Resposta}</p>
+                                </div>
                             </div>
-                            <div class="square"></div>
                         </div>
                     </div>
-    
-                    <div class="row d-flex flex-wrap gap-3 align-items-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                <a href="">
-                                    <p class="card-text">Nome do Espaço</p>
-                                </a>
-                            </div>
-                            <div class="square"></div>
+
+                    <div class="d-flex justify-content-between flex-row relative" style="position: relative;">
+                        <div class="upvote">
+                            <button class="upCircle">
+                                🔼
+                            </button>
+                            <p class="mb-2">
+                                0
+                            </p>
+                            <button class="downCircle">
+                                🔽
+                            </button>
                         </div>
-                    </div>
-    
-                    <div class="row d-flex flex-wrap gap-3 align-items-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                <a href="">
-                                    <p class="card-text">Nome do Espaço</p>
-                                </a>
+                        <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
+                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
+                                <div class="card-body">
+                                    <h5 class="card-title">{Nome do Usuário}</h5>
+                                    <p class="card-text">{Texto da Resposta}</p>
+                                </div>
                             </div>
-                            <div class="square"></div>
-                        </div>
-                    </div>
-    
-                    <div class="row d-flex flex-wrap gap-3 align-items-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                <a href="">
-                                    <p class="card-text">Nome do Espaço</p>
-                                </a>
-                            </div>
-                            <div class="square"></div>
-                        </div>
-                    </div>
-    
-                    <div class="row d-flex flex-wrap gap-3 align-items-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                <a href="">
-                                    <p class="card-text">Nome do Espaço</p>
-                                </a>
-                            </div>
-                            <div class="square"></div>
-                        </div>
-                    </div>
-    
-                    <div class="row d-flex flex-wrap gap-3 align-items-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                <a href="">
-                                    <p class="card-text">Nome do Espaço</p>
-                                </a>
-                            </div>
-                            <div class="square"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </div>
-        
-        <img src="img/bosch-line.png" class="fixed-bottom" alt="">
+        <img src="../../public/assets/line.png" class="fixed-bottom" alt="">
     </main>
 </body>
 </html>
