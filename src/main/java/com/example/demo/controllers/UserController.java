@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,8 +37,7 @@ public class UserController {
     @Autowired
     JWTService<Token> jwtService;
 
-
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PostMapping("/user")
     public ResponseEntity<String> createNewUser(@RequestBody UserDto data){
         if(data.edv() == null || data.email() == null || data.name() == null || data.password() == null)
@@ -56,11 +56,9 @@ public class UserController {
         if(user == null)
             return new ResponseEntity<>("Internal Error", HttpStatus.INTERNAL_SERVER_ERROR);
 
-
         return new ResponseEntity<>("User created!", HttpStatus.OK);
 
     }
-
 
     @GetMapping("/auth")
     public ResponseEntity<SecurityToken> authentication(@RequestBody UserDto data){
