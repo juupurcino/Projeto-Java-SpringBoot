@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.SecurityToken;
 import com.example.demo.dto.Token;
 import com.example.demo.dto.UserDto;
+import com.example.demo.dto.UserDtoLogin;
 import com.example.demo.model.User;
 import com.example.demo.services.CriptService;
 import com.example.demo.services.JWTService;
@@ -60,24 +61,27 @@ public class UserController {
 
     }
 
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PostMapping("/auth")
-    public ResponseEntity<SecurityToken> authentication(@RequestBody UserDto data){
-        if((data.edv() == null && data.email() == null && data.name() == null) || data.password() == null)
-            return new ResponseEntity<>(new SecurityToken("?","Missing arguments"), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<SecurityToken> authentication(@RequestBody UserDtoLogin data){
+        // Verifica se o email ou a senha são nulos
+        if (data.email() == null || data.password() == null) {
+            return new ResponseEntity<>(new SecurityToken("?", "Missing arguments"), HttpStatus.BAD_REQUEST);
+        }
 
-        List<User> users = userService.get(
-            data.edv() != null ? data.edv() : data.email() != null ? data.email() : data.name(), 
-            1,1
-        );
+        // A lógica abaixo é para buscar o usuário pelo email
+        List<User> users = userService.get(data.email(), 1, 1);
 
-        if(users.isEmpty())
-            return new ResponseEntity<>(new SecurityToken("?", "None user with these login founded"), HttpStatus.BAD_REQUEST);
-            
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(new SecurityToken("?", "No user found with these login credentials"), HttpStatus.BAD_REQUEST);
+        }
+
         User user = users.get(0);
-        
-        if(!criptService.compare(data.password(), user.getPassword()))
-            return new ResponseEntity<>(new SecurityToken("?", "Incorrect password"), HttpStatus.FORBIDDEN);
 
+        // Compara a senha
+        if (!criptService.compare(data.password(), user.getPassword())) {
+            return new ResponseEntity<>(new SecurityToken("?", "Incorrect password"), HttpStatus.FORBIDDEN);
+        }
 
         Token token = new Token();
         token.setId(user.getId());
@@ -86,6 +90,7 @@ public class UserController {
 
         return new ResponseEntity<>(new SecurityToken(jwt, "Login authenticated!"), HttpStatus.OK);
     }
+
 
     @GetMapping("/user")
     public ResponseEntity<List<User>> getUsers(String query, Integer page, Integer size){

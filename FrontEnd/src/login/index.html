@@ -28,19 +28,22 @@
             <h5 class="my-5">Entre em sua conta 😊</h5>
             <form class="w-50">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label fw-medium">Login</label>
+                  <label for="exampleInputEmail1" class="form-label fw-medium">Email</label>
                   <input type="email" class="form-control" id="email-input" aria-describedby="emailHelp">                       <!-- ID DO INPUT DO EMAIL -->
                   <div id="emailHelp" class="form-text">Jamais compartilharemos suas informações com alguém externo.</div>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label fw-medium">Senha</label>
                   <input type="password" class="form-control" id="password-input">                                              <!-- ID DO INPUT DA SENHA -->
+                </div>
+                <div class="mb-2 d-flex justify-content-between">
+                  <div id="psHelp" class="form-text">Não tem uma conta? <a href="../register/index.html" class="text-primary">Clique aqui</a></div>
                   <div id="psHelp" class="form-text text-primary">Esqueceu sua senha?</div>
                 </div>
                 <div class="mb-3 form-check">
                 </div>
-                <div class="d-flex align-items-center justify-content-center" id="btn-login">                                   <!-- ID DO BOTÃO DE LOGIN -->
-                    <button type="submit" class="btn btn-primary">Login</button>
+                <div class="d-flex align-items-center justify-content-center" >                                   <!-- ID DO BOTÃO DE LOGIN -->
+                    <button class="btn btn-primary" id="btn-login">Login</button>
                 </div>
               </form>
         </div>

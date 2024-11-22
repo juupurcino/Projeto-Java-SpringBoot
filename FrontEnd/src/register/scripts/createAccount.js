@@ -22,7 +22,7 @@ document.getElementById('userForm').addEventListener('submit', async function(ev
 
     try {
         // Envia a requisição POST para o backend
-        const response = await fetch('http://localhost:8080/user', {
+        const response = await fetch('https://localhost:8080/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
