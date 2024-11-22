@@ -1,5 +1,5 @@
 // URL da API
-const botao = document.getElementById("btn-login");
+const botao = document.getElementById("btn-login")
 const url = "http://localhost:8080/auth";
 
 botao.addEventListener('click', async function(event) {
@@ -7,11 +7,13 @@ botao.addEventListener('click', async function(event) {
     const emailInput = document.getElementById("email-input");
     const passwordInput = document.getElementById("password-input");
     
+    
     const data = {
         email: emailInput.value,
         password: passwordInput.value
     }
 
+    
     fetch(url, {
         method: "POST",
         headers: {
@@ -21,28 +23,26 @@ botao.addEventListener('click', async function(event) {
     })
     
     .then(response => {
-        if (!response.ok) {
+        if(!response.ok) {
             throw new Error(`Erro ${response.status}`);
         }
 
-        return response.json(); // Aqui é onde o corpo da resposta é transformado em um objeto JSON
+        return response.json();
     })
     
     .then(data => {
         console.log(`Login bem sucedido! Dados recebidos: ${JSON.stringify(data)}`);
 
-        // Verifique onde o token está no corpo da resposta. Exemplo:
-        const token = data.token; // Supondo que o JWT esteja em 'data.token'
+        // Verifica se o token está no header e armazena no localStorage
+        // const token = response.headers.get('Authorization'); // Caso o JWT venha no header
+        // if (token) {
+            localStorage.setItem('token', JSON.stringify(JSON.stringify(data.jwt))); // Armazenando o JWT no localStorage
+        // }
 
-        if (token) {
-            localStorage.setItem('token', token); // Armazenando o token no localStorage
-        }
-
-        // Redirecionando após o login
-        // window.location.href = "http://127.0.0.1:5500/FrontEnd/src/home/index.html";
+        // window.location.href = "http://127.0.0.1:5500/FrontEnd/src/home/index.html"
     })
     
     .catch(error => {
         console.error(`Erro ao fazer a requisição: ${error}`);
     })
-});
+})
