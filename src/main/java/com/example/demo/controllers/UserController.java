@@ -62,7 +62,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/auth")
+    @PostMapping("/auth")
     public ResponseEntity<SecurityToken> authentication(@RequestBody UserDto data){
         if((data.edv() == null && data.email() == null && data.name() == null) || data.password() == null)
             return new ResponseEntity<>(new SecurityToken("?","Missing arguments"), HttpStatus.BAD_REQUEST);
