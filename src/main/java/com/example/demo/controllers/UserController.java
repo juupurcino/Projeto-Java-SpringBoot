@@ -62,7 +62,6 @@ public class UserController {
     }
 
 
-
     @GetMapping("/auth")
     public ResponseEntity<SecurityToken> authentication(@RequestBody UserDto data){
         if((data.edv() == null && data.email() == null && data.name() == null) || data.password() == null)

@@ -35,13 +35,13 @@
             <div class="modal-body">
                 <form class="d-flex flex-column gap-4">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Título da pergunta</label>
-                      <input id="tituloPergunta" class="form-control" placeholder="Digite aqui um breve título para a sua pergunta...">
+                      <label for="nomeDoCidadão">Nome do Membro</label>
+                      <input id="nomeDoCidadão" class="form-control" placeholder="Digite aqui o nome do cidadão...">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Corpo da pergunta</label>
-                        <input id="tituloPergunta"  class="form-control" placeholder="Descreva aqui em detalhes sua pergunta...">
-                      </div>
+                        <label for="permissão">Permissão</label>
+                        <input id="permissão"  class="form-control" placeholder="3 - ADM, 2- MEMBRO ">
+                    </div>
                   </form>
             </div>
             <div class="modal-footer">
@@ -74,56 +74,79 @@
             <div class="d-flex justify-content-around w-100 align-items-center">
                 <h2 class="mb-5 mt-5">{nome do espaço}</h2>
                 <div class="d-flex gap-3">
-                    <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Nova Pergunta</button>
+                    <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Novo Membro</button>
                     <button type="button" class="btn btn-secondary h-50"><a class="text-white" href="../members/">Ver Membros</a></button>
                 </div>
             </div>
-            <div id="cardContainer" class="d-flex justify-content-center w-100 flex-column gap-5 align-items-center">   <!-- cardsContainer: PARA RENDERIZAR AS PRGUNTAS DO ESPAÇO -->
-
-                <!-- COMPONENTE DO CARD -->
-                <div class="card w-75 h-25" idPergunta=3>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
-                    <div class="card-body">
-                      <button class="btn btn-danger         btnExcluir      " style="position: absolute; right: 5%;">🗑️</button>      <!-- btnExcluir (classe): se o usuário for adm, ocultar esse botão pela CLASSE -->
-                      <h5 class="card-title">{título da pergunta}</h5>
-                      <p class="card-text">{corpo da pergunta}</p>
-                      <p class="card-text"><small class="text-muted">Atualizado por último há 3 minutos</small></p>
+            <div id="userContainer" class="d-flex justify-content-center w-100  gap-5 align-items-center flex-wrap">   <!-- userContainer: PARA RENDERIZAR os membros DO ESPAÇO -->
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
                     </div>
                 </div>
-                <!-- COMPONETNE DO CARD -->
-                <div class="card w-75 h-25" idPergunta=3>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
-                    <div class="card-body">
-                      <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;">🗑️</button>
-
-                      <h5 class="card-title">{título da pergunta}</h5>
-                      <p class="card-text">{corpo da pergunta}</p>
-                      <p class="card-text"><small class="text-muted">Atualizado por último há 3 minutos</small></p>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
                     </div>
                 </div>
-                <div class="card w-75 h-25" idPergunta=3>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
-                    <div class="card-body">
-                      <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;">🗑️</button>
-
-                      <h5 class="card-title">{título da pergunta}</h5>
-                      <p class="card-text">{corpo da pergunta}</p>
-                      <p class="card-text"><small class="text-muted">Atualizado por último há 3 minutos</small></p>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
                     </div>
                 </div>
-                <div class="card w-75 h-25" idPergunta=3>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
-                    <div class="card-body">
-                      <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;">🗑️</button>
-
-                      <h5 class="card-title">{título da pergunta}</h5>
-                      <p class="card-text">{corpo da pergunta}</p>
-                      <p class="card-text"><small class="text-muted">Atualizado por último há 3 minutos</small></p>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
                     </div>
                 </div>
-                <div class="card w-75 h-25" idPergunta=3>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
-                    <div class="card-body">
-                      <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;">🗑️</button>
-
-                      <h5 class="card-title">{título da pergunta}</h5>
-                      <p class="card-text">{corpo da}</p>
-                      <p class="card-text"><small class="text-muted">Atualizado por último há 3 minutos</small></p>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="">
+                                <p class="card-text">Nome do Membro</p>
+                            </a>
+                        </div>
+                        <div class="square"></div>
                     </div>
                 </div>
 
