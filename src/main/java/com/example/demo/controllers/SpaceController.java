@@ -67,6 +67,8 @@ public class SpaceController {
         
         var spaces = spaceService.get(query, page, size);
 
+        // Adicionar o dto que eu criei pra retornar o total de spaces, spaceResponse :)
+
         if (spaces == null) {
             return ResponseEntity.badRequest().build();
         }

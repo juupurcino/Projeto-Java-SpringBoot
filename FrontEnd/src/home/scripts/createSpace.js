@@ -1,3 +1,21 @@
+const cardsContainer = document.getElementById("cardsContainer");
+const prevButton = document.getElementById("prev-button");
+const nextButton = document.getElementById("next-button");
+
+let currentPage = 1;
+let totalPages = 1;
+
+async function getSpaces(page) {
+    try {
+        const response = await fetch(`http://localhost:8080/spaces?page=${page}&size=8`);
+        const data = await response.json();
+
+        totalPages = Math.ceil(data)
+    }
+}
+
+
+
 document.getElementById('createSpaceBtn').addEventListener('click', async function () {
     const name = document.getElementById("spaceTitle").value;
 
