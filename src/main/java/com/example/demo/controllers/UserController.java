@@ -88,6 +88,8 @@ public class UserController {
         token.setUsername(user.getUsername());
         String jwt = jwtService.get(token);
 
+        System.out.println(jwt);
+
         return new ResponseEntity<>(new SecurityToken(jwt, "Login authenticated!"), HttpStatus.OK);
     }
 
