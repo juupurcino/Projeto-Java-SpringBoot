@@ -1,14 +1,12 @@
 document.getElementById('userForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Evitar que o formulário seja enviado da forma tradicional
+    event.preventDefault(); // Impede o envio tradicional do formulário
 
-    // Coletar os dados do formulário
     const name = document.getElementById('name-input').value;
     const email = document.getElementById('email-input').value;
     const edv = document.getElementById('edv-input').value;
     const password = document.getElementById('password-input').value;
     const passwordConfirmation = document.getElementById('password-inputConfirmation').value;
 
-    // Criar o objeto com os dados
     const userData = {
         name: name,
         email: email,
@@ -16,20 +14,29 @@ document.getElementById('userForm').addEventListener('submit', async function(ev
         password: password
     };
 
+    // Verifica se as senhas são iguais
+    if (password !== passwordConfirmation) {
+        alert("A senha e a confirmação de senha devem ser iguais!");
+        return;  // Sai da função caso as senhas não coincidam
+    }
+
     try {
-        // Fazer a requisição POST para o backend
+        // Envia a requisição POST para o backend
         const response = await fetch('http://localhost:8080/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userData) // Enviar os dados como JSON
+            body: JSON.stringify(userData)  // Envia os dados como JSON
         });
-
-        // Verificar a resposta do backend
+        
+        console.log(JSON.stringify(userData))
+        
+        // Verifica a resposta do backend
         if (response.ok) {
             const responseBody = await response.text();
             document.getElementById('responseMessage').innerText = responseBody;
+            alert("Conta criada com sucesso!");
         } else {
             const errorMessage = await response.text();
             document.getElementById('responseMessage').innerText = `Erro: ${errorMessage}`;
