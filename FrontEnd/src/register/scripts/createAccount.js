@@ -30,13 +30,12 @@ document.getElementById('userForm').addEventListener('submit', async function(ev
             body: JSON.stringify(userData)  // Envia os dados como JSON
         });
         
-        console.log(JSON.stringify(userData))
-        
         // Verifica a resposta do backend
         if (response.ok) {
             const responseBody = await response.text();
             document.getElementById('responseMessage').innerText = responseBody;
-            alert("Conta criada com sucesso!");
+            alert("Conta criada com sucesso!")
+            window.location.href = "http://127.0.0.1:5500/FrontEnd/src/login/index.html";
         } else {
             const errorMessage = await response.text();
             document.getElementById('responseMessage').innerText = `Erro: ${errorMessage}`;
