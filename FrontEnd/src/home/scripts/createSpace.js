@@ -50,28 +50,28 @@ async function getSpaces(page) {
 document.getElementById('createSpaceBtn').addEventListener('click', async function () {
     const name = document.getElementById("spaceTitle").value;
 
-    // Verifica se o nome foi fornecido
     if (!name) {
         alert("O título do espaço é obrigatório.");
         return;
     }
 
-    const spaceData = {
-        name: name,
-        qtdUsers: 1 
-    };
+    const spaceData = { name, qtdUsers: 1 };
 
     try {
-        // Envia a requisição POST para o backend
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Token não encontrado. Faça login novamente.");
+            return;
+        }
+
         const response = await fetch("http://localhost:8080/spaces", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Se você estiver usando autenticação baseada em token ou sessão
-                'Authorization': 'Bearer ' + token // Certifique-se de que o token está disponível
+                'Authorization': 'Bearer ' + token
             },
-            body: JSON.stringify(spaceData),  // Passa o spaceData para o corpo da requisição
-            credentials: 'include'  // Adiciona cookies (se necessário)
+            body: JSON.stringify(spaceData),
+            credentials: 'include'  // Se necessário, adicionar credenciais para cookies ou headers
         });
 
         if (!response.ok) {
@@ -80,8 +80,6 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
 
         const data = await response.json();
         console.log('Espaço criado com sucesso:', data);
-        // Se desejar, você pode atualizar a interface aqui
-
     } catch (error) {
         console.error('Erro:', error);
     }
