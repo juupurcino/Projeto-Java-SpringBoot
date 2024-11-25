@@ -5,13 +5,44 @@ const nextButton = document.getElementById("next-button");
 let currentPage = 1;
 let totalPages = 1;
 
-async function getSpaces(page) {
-    try {
-        const response = await fetch(`http://localhost:8080/spaces?page=${page}&size=8`);
-        const data = await response.json();
 
-        totalPages = Math.ceil(data)
+
+async function getSpaces(page) {
+
+    let token = localStorage.getItem('token')
+
+    if (!token) {
+        console.log("Token nâo encontrado, permissâo negada!");
+        return;
     }
+
+    token = token.replace(/\\/g, '');
+    token = token.replace(/^"(.*)"$/, '$1');
+    token = token.replace(/^"(.*)"$/, '$1');
+
+    console.log(token)
+
+    fetch(`http://localhost:8080/spaces?page=${currentPage}&size=8`, {
+        method: 'GET',
+        // mode: 'no-cors',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+                // Verifique se a requisição foi bem-sucedida
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+        
+            // Converta o corpo da resposta para JSON
+            return response.json();
+        })
+        .then(data => {
+            console.log('Dados recebidos: ', data);
+        })
+        .catch(error => console.log('Erro:', error));
 }
 
 
@@ -55,3 +86,6 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
         console.error('Erro:', error);
     }
 });
+
+
+getSpaces();
