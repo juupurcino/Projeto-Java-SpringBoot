@@ -101,6 +101,11 @@ public class SpaceController {
         return new ResponseEntity<>(returnSpace, HttpStatus.OK);
     }
 
+    @CrossOrigin(
+        origins = "http://127.0.0.1:5500", 
+        allowedHeaders = "*", 
+        methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
+    )
     @GetMapping("/{id}")
     public ResponseEntity<Space> getQuestionById(@PathVariable Long id){
 
