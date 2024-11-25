@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Token;
 import com.example.demo.dto.spaceDto;
+import com.example.demo.dto.spaceResponse;
 import com.example.demo.model.Space;
 import com.example.demo.model.User;
+import com.example.demo.repositories.SpaceRepository;
 import com.example.demo.services.SpaceService;
 import com.example.demo.services.UserService;
 
@@ -29,15 +31,11 @@ public class SpaceController {
 
     @Autowired
     SpaceService spaceService;
+
     @Autowired
     UserService userService;
-
-    // CORS para POST, GET, DELETE e OPTIONS
-    @CrossOrigin(
-        origins = "http://127.0.0.1:5500", 
-        allowedHeaders = "*", 
-        methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
-    )
+    
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PostMapping
     public ResponseEntity<String> createSpace(@RequestBody spaceDto newSpace, @RequestAttribute("token") Token token){
         User user = userService.getById(token.getId());
@@ -67,14 +65,9 @@ public class SpaceController {
         
         return new ResponseEntity<>("Espaço deletado com sucesso", HttpStatus.OK);
     }
-    
-    @CrossOrigin(
-    origins = "http://127.0.0.1:5500", 
-    allowedHeaders = "*", 
-    methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
-)
+
     @GetMapping
-    public ResponseEntity<List<Space>> getSpaces(String query, Integer page, Integer size){
+    public ResponseEntity<Object> getSpaces(String query, Integer page, Integer size){
         if(page == null)
             page = 1;
         
@@ -83,12 +76,19 @@ public class SpaceController {
         
         var spaces = spaceService.get(query, page, size);
 
-        // Adicionar o dto que eu criei pra retornar o total de spaces, spaceResponse :)
-
         if (spaces == null) {
             return ResponseEntity.badRequest().build();
         }
-        return new ResponseEntity<>(spaces, HttpStatus.OK);
+
+        var spaceTotal = spaceRepository.findAll();
+
+        var qtdTotal = spaceTotal.stream().count();
+
+        var returnResponse = new spaceResponse(spaces, qtdTotal);
+
+        // Adicionar o dto que eu criei pra retornar o total de spaces, spaceResponse :)
+
+        return new ResponseEntity<>(returnResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
