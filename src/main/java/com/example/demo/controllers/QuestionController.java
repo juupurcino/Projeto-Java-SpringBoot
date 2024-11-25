@@ -36,8 +36,6 @@ public class QuestionController {
     UserService userService;
     @Autowired
     PermissionService permissionService;
-
-
     
     @PostMapping
     public ResponseEntity<String> createQuestion(@RequestBody questionDto newQuestion, @RequestAttribute("token") Token token){
