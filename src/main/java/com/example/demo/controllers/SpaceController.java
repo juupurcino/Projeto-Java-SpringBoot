@@ -36,8 +36,6 @@ public class SpaceController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    SpaceRepository spaceRepository;
 
     // CORS para POST, GET, DELETE e OPTIONS
     @CrossOrigin(
