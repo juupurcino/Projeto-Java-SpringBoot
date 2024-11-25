@@ -31,12 +31,20 @@ public class SpaceController {
     SpaceService spaceService;
 
     @Autowired
+    SpaceRepository spaceRepository;
+
+    @Autowired
     UserService userService;
 
     @Autowired
     SpaceRepository spaceRepository;
-    
-    @CrossOrigin(origins = "http://127.0.0.1:5500")
+
+    // CORS para POST, GET, DELETE e OPTIONS
+    @CrossOrigin(
+        origins = "http://127.0.0.1:5500", 
+        allowedHeaders = "*", 
+        methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
+    )
     @PostMapping
     public ResponseEntity<String> createSpace(@RequestBody spaceDto newSpace, @RequestAttribute("token") Token token){
         User user = userService.getById(token.getId());
@@ -66,7 +74,12 @@ public class SpaceController {
         
         return new ResponseEntity<>("Espaço deletado com sucesso", HttpStatus.OK);
     }
-
+    
+    @CrossOrigin(
+    origins = "http://127.0.0.1:5500", 
+    allowedHeaders = "*", 
+    methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS }
+)
     @GetMapping
     public ResponseEntity<Object> getSpaces(String query, Integer page, Integer size){
         if(page == null)
@@ -77,19 +90,17 @@ public class SpaceController {
         
         var spaces = spaceService.get(query, page, size);
 
+        var qtdTotal = spaceRepository.findAll().stream().count();
+
+        // Adicionar o dto que eu criei pra retornar o total de spaces, spaceResponse :)
+
         if (spaces == null) {
             return ResponseEntity.badRequest().build();
         }
 
-        var spaceTotal = spaceRepository.findAll();
+        var returnSpace = new spaceResponse(spaces, qtdTotal);
 
-        var qtdTotal = spaceTotal.stream().count();
-
-        var returnResponse = new spaceResponse(spaces, qtdTotal);
-
-        // Adicionar o dto que eu criei pra retornar o total de spaces, spaceResponse :)
-
-        return new ResponseEntity<>(returnResponse, HttpStatus.OK);
+        return new ResponseEntity<>(returnSpace, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
