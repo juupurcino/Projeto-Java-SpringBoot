@@ -91,7 +91,7 @@ function getQuestionBySpace(spaceId) {
                 card.classList.add('card', 'w-75', 'h-25');
                 card.innerHTML = `
                     <div class="card-body">
-                        <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;">🗑️</button>
+                        <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;" onclick="deleteQuestion(${question.id})">🗑️</button>
                         <a href="/FrontEnd/src/question/index.html?idQuestion=${question.id}">
                             <h4 class="card-title">${question.user.username}: ${question.title}</h5>
                             <p class="card-text">${question.question}</p>
@@ -101,6 +101,36 @@ function getQuestionBySpace(spaceId) {
                 cardContainer.appendChild(card);
             });
         }
+    })
+}
+
+await function deleteQuestion(idQuestion) {
+    
+    let token = localStorage.getItem('token')
+
+    if (!token) {
+        console.log("Token nâo encontrado, permissão negada!");
+        return;
+    }
+
+    token = token.replace(/\\/g, '');
+    token = token.replace(/^"(.*)"$/, '$1');
+    token = token.replace(/^"(.*)"$/, '$1');
+
+
+    fetch(`http://localhost:8080/question/${idQuestion}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na requisição');
+        }
+        // Converta o corpo da resposta para JSON
+        return response.json();
     })
 }
 
