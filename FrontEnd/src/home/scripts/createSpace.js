@@ -59,7 +59,7 @@ async function getSpaces() {
     token = token.replace(/^"(.*)"$/, '$1');
     token = token.replace(/^"(.*)"$/, '$1');
 
-    console.log(token)
+    // console.log(token)
 
     fetch(`http://localhost:8080/spaces?page=${currentPage}&size=2`, {
         method: 'GET',
