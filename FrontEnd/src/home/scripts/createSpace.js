@@ -114,7 +114,9 @@ async function getSpaces() {
     );
 }
 
-async function createSpace() {
+
+
+document.getElementById('createSpaceBtn').addEventListener('click', async function () {
     const name = document.getElementById("spaceTitle").value;
 
     if (!name) {
@@ -122,31 +124,33 @@ async function createSpace() {
         return;
     }
 
-    let token = localStorage.getItem('token');
-
-    if (!token) {
-        console.log("Token não encontrado, permissão negada!");
-        return;
-    }
-
-    token = token.replace(/\\/g, '');
-    token = token.replace(/^"(.*)"$/, '$1');
-    token = token.replace(/^"(.*)"$/, '$1');
-
     const spaceData = { name, qtdUsers: 1 };
 
     try {
-        const response = await fetch(`http://localhost:8080/spaces`, {
+        const token = localStorage.getItem("token");
+        
+        token = token.replace(/\\/g, '')
+        token = token.replace(/^(.*)"$/, '$1')
+        token = token.replace(/^(.*)"$/, '$1')
+        console.log("Token recebido:", token);
+
+        if (!token) {
+            alert("Token não encontrado. Faça login novamente.");
+            return;
+        }
+
+        const response = await fetch("http://localhost:8080/spaces", {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
-            body: JSON.stringify(spaceData)
+            body: JSON.stringify(spaceData),
+            credentials: 'include'  // Se necessário, adicionar credenciais para cookies ou headers
         });
 
         if (!response.ok) {
-            throw new Error(`Erro na requisição: ${response.statusText}`);
+            throw new Error('Erro ao criar espaço: ' + response.statusText);
         }
 
         const contentType = response.headers.get("content-type");
@@ -167,10 +171,9 @@ async function createSpace() {
                closeButton.click();  // Fechar o modal
            }
     } catch (error) {
-        console.log('Erro ao criar o espaço:', error);
+        console.error('Erro:', error);
     }
-}
+});
 
-document.getElementById('createSpaceBtn').addEventListener('click', createSpace);
 
 window.onload = getSpaces();
