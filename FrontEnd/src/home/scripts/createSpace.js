@@ -1,18 +1,57 @@
 const cardsContainer = document.getElementById("cardsContainer");
 const prevButton = document.getElementById("prev-button");
 const nextButton = document.getElementById("next-button");
+const container = document.getElementById('cardsContainer');
 
 let currentPage = 1;
 let totalPages = 1;
 
+nextButton.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+        currentPage += 1;
+        getSpaces();
+    }
+
+    if (currentPage === totalPages - 2) {
+        nextButton.disabled = true;
+    } else {
+        nextButton.disabled = false;
+    }
+
+    if (currentPage === 1) {
+        prevButton.disabled = true;
+    } else {
+        prevButton.disabled = false;
+    }
+
+})
+
+prevButton.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage -= 1;
+        getSpaces();
+    }
+
+    if (currentPage === 1) {
+        prevButton.disabled = true;
+    } else {
+        prevButton.disabled = false;
+    }
+
+    if (currentPage === totalPages - 2) {
+        nextButton.disabled = true;
+    } else {
+        nextButton.disabled = false;
+    }
+});
 
 
-async function getSpaces(page) {
+async function getSpaces() {
 
     let token = localStorage.getItem('token')
 
     if (!token) {
-        console.log("Token nâo encontrado, permissâo negada!");
+        console.log("Token nâo encontrado, permissão negada!");
         return;
     }
 
@@ -22,7 +61,7 @@ async function getSpaces(page) {
 
     console.log(token)
 
-    fetch(`http://localhost:8080/spaces?page=${currentPage}&size=8`, {
+    fetch(`http://localhost:8080/spaces?page=${currentPage}&size=2`, {
         method: 'GET',
         // mode: 'no-cors',
         headers: {
@@ -41,8 +80,38 @@ async function getSpaces(page) {
         })
         .then(data => {
             console.log('Dados recebidos: ', data);
+            totalPages = data.total;
+            console.log(totalPages);
+
+            if (totalPages == 0) {
+                container.innerHTML = 'Nenhum espaço encontrado.';
+            }
+
+            container.innerHTML = '';
+
+            data.space.forEach(space => {
+                const card = document.createElement('div');
+                card.classList.add('row', 'd-flex', 'flex-wrap', 'gap-3', 'align-items-center', 'cardFofo');
+    
+                card.innerHTML = `
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <a href="#">
+                                <p class="card-text">${space.name}</p>  <!-- O nome do espaço é inserido aqui -->
+                            </a>
+                        </div>
+                        <div class="square"></div>
+                    </div>
+                `;
+    
+                container.appendChild(card)
+            })
         })
-        .catch(error => console.log('Erro:', error));
+        .catch(error => {
+            console.log('Erro:', error);
+            container.innerHTML = 'Ocorreu um erro ao carregar os espaços.';
+        }
+    );
 }
 
 
@@ -86,4 +155,4 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
 });
 
 
-getSpaces();
+window.onload = getSpaces();
