@@ -33,21 +33,25 @@ public class QuestionImplementation implements QuestionService {
     @Override
     public List<Question> getBySpaceId(Long spaceId, int page, int size) {
         List<Question> questions = questionRepository.findAllBySpaceIdSpace(spaceId);       
-        if(questions.isEmpty())
+
+        if (questions.isEmpty()) {
             return null;
-
-        Integer totalPages = (questions.size() / size) + (questions.size() % size != 0 ? 1 : 0);
-        if(page <= 0 || size <= 0 || page > totalPages)
-            return List.of();
-
-        if (questionRepository.count() < page * size)
-            if (questionRepository.count() > (page - 1) * size)
-                return questions.subList((page - 1) * size, (int)questionRepository.count());
-            else 
-                return null;
-            
-
-        return questions.subList((page - 1) * size, page * size);
+        }
+    
+        int totalQuestions = questions.size();
+        int totalPages = (totalQuestions / size) + (totalQuestions % size != 0 ? 1 : 0);
+    
+        // Se a página ou o tamanho for inválido
+        if (page <= 0 || size <= 0 || page > totalPages) {
+            return List.of(); // Retorna uma lista vazia caso a página seja inválida
+        }
+    
+        // Calcule os índices de início e fim para a sublist
+        int startIndex = (page - 1) * size;
+        int endIndex = Math.min(startIndex + size, totalQuestions); // Garante que o índice final não ultrapasse o tamanho da lista
+    
+        // Retorna a sublista com as questões da página solicitada
+        return questions.subList(startIndex, endIndex);
     }
 
     @Override

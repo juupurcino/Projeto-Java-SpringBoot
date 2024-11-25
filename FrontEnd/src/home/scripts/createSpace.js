@@ -44,7 +44,7 @@ function updateButtonState() {
 
 async function getSpaces() {
 
-    console.log(currentPage)
+    // console.log(currentPage)
 
     let token = localStorage.getItem('token')
 
@@ -68,19 +68,18 @@ async function getSpaces() {
         }
       })
         .then(response => {
-                // Verifique se a requisição foi bem-sucedida
+            
             if (!response.ok) {
                 throw new Error('Erro na requisição');
             }
         
-            // Converta o corpo da resposta para JSON
             return response.json();
         })
         .then(data => {
-            console.log('Dados recebidos: ', data);
+            // console.log('Dados recebidos: ', data);
             totalSpaces = data.total;
             totalPages = Math.ceil(totalSpaces / size);
-            console.log(totalSpaces);
+            // console.log(totalSpaces);
 
             if (totalSpaces == 0) {
                 container.innerHTML = 'Nenhum espaço encontrado.';
@@ -95,7 +94,7 @@ async function getSpaces() {
                 card.innerHTML = `
                     <div class="card" style="width: 18rem;">
                         <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                            <a href='/FrontEnd/src/space/index.html?${space.idSpace}'>
+                            <a href='/FrontEnd/src/space/index.html?idSpace=${space.idSpace}'>
                                 <p class="card-text">${space.name}</p>  <!-- O nome do espaço é inserido aqui -->
                             </a>
                         </div>

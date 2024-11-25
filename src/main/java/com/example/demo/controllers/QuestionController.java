@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Token;
@@ -65,8 +67,8 @@ public class QuestionController {
         return new ResponseEntity<>("Questão deletada com sucesso", HttpStatus.OK);
     }
 
-    @GetMapping("/{spaces}")
-    public ResponseEntity<List<Question>> getQuestionbySpace(@PathVariable Long spaceId, Integer page, Integer size){
+    @GetMapping("/{spaceId}")
+    public ResponseEntity<List<Question>> getQuestionbySpace(@PathVariable Long spaceId, @RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size){
         if(page == null)
             page = 1;
         
@@ -76,7 +78,7 @@ public class QuestionController {
         List<Question> questions = questionService.getBySpaceId(spaceId, page, size);
 
         if(questions == null)
-            return ResponseEntity.badRequest().build();
+             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
