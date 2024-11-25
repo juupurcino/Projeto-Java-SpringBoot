@@ -32,7 +32,7 @@ botao.addEventListener('click', async function(event) {
     
     .then(data => {
         console.log(`Login bem sucedido! Dados recebidos: ${JSON.stringify(data)}`);
-        window.location.href = "http://127.0.0.1:5500/FrontEnd/src/home/index.html"
+        window.location.href = "/FrontEnd/src/home/index.html"
 
         // Verifica se o token está no header e armazena no localStorage
         // const token = response.headers.get('Authorization'); // Caso o JWT venha no header
