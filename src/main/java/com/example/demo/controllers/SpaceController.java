@@ -1,7 +1,5 @@
 package com.example.demo.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +32,9 @@ public class SpaceController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SpaceRepository spaceRepository;
     
     @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PostMapping
