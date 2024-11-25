@@ -128,6 +128,12 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
 
     try {
         const token = localStorage.getItem("token");
+        
+        token = token.replace(/\\/g, '')
+        token = token.replace(/^(.*)"$/, '$1')
+        token = token.replace(/^(.*)"$/, '$1')
+        console.log("Token recebido:", token);
+
         if (!token) {
             alert("Token não encontrado. Faça login novamente.");
             return;

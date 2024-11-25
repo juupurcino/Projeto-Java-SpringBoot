@@ -22,9 +22,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         this.jwtService = jwtService;
     }
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+
                 
         String path = request.getRequestURI();
         
@@ -34,9 +41,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
 
         var jwt = getJwt(request);
+        System.out.println("esse é o jwt: " + jwt);
         if (jwt == null)
         {
             filterChain.doFilter(request, response);
+            System.out.println("o jwt é nulo: " + jwt);
             return;
         }
 
@@ -45,6 +54,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         if (token == null)
         {
             filterChain.doFilter(request, response);
+            System.out.println("o token é nulo: " + token);
             return;
         }
         
@@ -57,7 +67,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     
     String getJwt(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
+        System.out.println("entrou na validação do baerer");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            System.out.println("validou se o token começa com baerer, e retorunou: " +  bearerToken.substring(7));
             return bearerToken.substring(7);
         }
         return null;
