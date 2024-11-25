@@ -4,7 +4,9 @@ const nextButton = document.getElementById("next-button");
 const container = document.getElementById('cardsContainer');
 
 let currentPage = 1;
+let totalSpaces = 1;
 let totalPages = 1;
+let size = 2;
 
 nextButton.addEventListener('click', () => {
     if (currentPage < totalPages) {
@@ -12,17 +14,7 @@ nextButton.addEventListener('click', () => {
         getSpaces();
     }
 
-    if (currentPage === totalPages - 2) {
-        nextButton.disabled = true;
-    } else {
-        nextButton.disabled = false;
-    }
-
-    if (currentPage === 1) {
-        prevButton.disabled = true;
-    } else {
-        prevButton.disabled = false;
-    }
+    updateButtonState();
 
 })
 
@@ -32,21 +24,27 @@ prevButton.addEventListener('click', () => {
         getSpaces();
     }
 
+    updateButtonState();
+});
+
+function updateButtonState() {
+    if (currentPage === totalPages) {
+        nextButton.disabled = true;
+    } else {
+        nextButton.disabled = false;
+    }
+
     if (currentPage === 1) {
         prevButton.disabled = true;
     } else {
         prevButton.disabled = false;
     }
-
-    if (currentPage === totalPages - 2) {
-        nextButton.disabled = true;
-    } else {
-        nextButton.disabled = false;
-    }
-});
+}
 
 
 async function getSpaces() {
+
+    console.log(currentPage)
 
     let token = localStorage.getItem('token')
 
@@ -61,7 +59,7 @@ async function getSpaces() {
 
     // console.log(token)
 
-    fetch(`http://localhost:8080/spaces?page=${currentPage}&size=2`, {
+    fetch(`http://localhost:8080/spaces?page=${currentPage}&size=${size}`, {
         method: 'GET',
         // mode: 'no-cors',
         headers: {
@@ -80,10 +78,11 @@ async function getSpaces() {
         })
         .then(data => {
             console.log('Dados recebidos: ', data);
-            totalPages = data.total;
-            console.log(totalPages);
+            totalSpaces = data.total;
+            totalPages = Math.ceil(totalSpaces / size);
+            console.log(totalSpaces);
 
-            if (totalPages == 0) {
+            if (totalSpaces == 0) {
                 container.innerHTML = 'Nenhum espaço encontrado.';
             }
 
@@ -96,7 +95,7 @@ async function getSpaces() {
                 card.innerHTML = `
                     <div class="card" style="width: 18rem;">
                         <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                            <a href="#">
+                            <a href='/FrontEnd/src/space/index.html?${space.idSpace}'>
                                 <p class="card-text">${space.name}</p>  <!-- O nome do espaço é inserido aqui -->
                             </a>
                         </div>
@@ -106,6 +105,7 @@ async function getSpaces() {
     
                 container.appendChild(card)
             })
+            updateButtonState();
         })
         .catch(error => {
             console.log('Erro:', error);
@@ -154,7 +154,8 @@ async function createSpace() {
         if (contentType && contentType.includes("application/json")) {
             const data = await response.json();
             console.log('Espaço criado com sucesso:', data);
-            window.location.href = "http://127.0.0.1:5500/FrontEnd/src/home/index.html"
+            window.onload = getSpaces();
+            
         } else {
             const message = await response.text();
             console.log('Resposta recebida:', message); 
