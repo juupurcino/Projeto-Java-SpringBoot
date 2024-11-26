@@ -1,26 +1,21 @@
 const spaceName = document.getElementById('spaceName');
 const cardContainer = document.getElementById('cardContainer');
-const btnQuestion = document.getElementById('createQuestionBtn');
-
-const urlParams = new URLSearchParams(window.location.search);
-const spaceId = urlParams.get('idSpace');
 
 window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const spaceId = urlParams.get('idSpace');
 
     if (spaceId) {
         console.log(`ID do espaço: ${spaceId}`);
         getSpaceInfo(spaceId);
-        getQuestionBySpace(spaceId);
+        // getQuestionBySpace(spaceId);
+        // fetchQuestions(spaceId);
     } else {
         console.log("ID não encontrado na URL.");
     }
 }
 
-btnQuestion.addEventListener('click', () => {
-    createQuestion(spaceId);
-});
-
-async function getSpaceInfo(spaceId) {
+function getSpaceInfo(spaceId) {
 
     let token = localStorage.getItem('token')
 
@@ -35,10 +30,6 @@ async function getSpaceInfo(spaceId) {
 
     var idNumber = parseInt(spaceId, 10);
 
-    const viewMembersButton = document.querySelector('.btn-secondary a');
-
-    viewMembersButton.href = `/FrontEnd/src/members/index.html?idSpace=${idNumber}`;
-
     fetch(`http://localhost:8080/spaces/${idNumber}`, {
         method: 'GET',
         headers: {
@@ -50,6 +41,7 @@ async function getSpaceInfo(spaceId) {
         if (!response.ok) {
             throw new Error('Erro na requisição');
         }
+        // Converta o corpo da resposta para JSON
         return response.json();
     })
     .then(data => {
@@ -58,7 +50,9 @@ async function getSpaceInfo(spaceId) {
     })
 }
 
-async function getQuestionBySpace(spaceId) {
+
+
+function getMenbersBySpace(spaceId) {
     let token = localStorage.getItem('token')
 
     if (!token) {
@@ -83,6 +77,7 @@ async function getQuestionBySpace(spaceId) {
         if (!response.ok) {
             throw new Error('Erro na requisição');
         }
+        // Converta o corpo da resposta para JSON
         return response.json();
     })
     .then(data => {
@@ -108,79 +103,5 @@ async function getQuestionBySpace(spaceId) {
                 cardContainer.appendChild(card);
             });
         }
-    })
-}
-
-async function deleteQuestion(idQuestion) {
-    
-    let token = localStorage.getItem('token')
-
-    if (!token) {
-        console.log("Token nâo encontrado, permissão negada!");
-        return;
-    }
-
-    token = token.replace(/\\/g, '');
-    token = token.replace(/^"(.*)"$/, '$1');
-    token = token.replace(/^"(.*)"$/, '$1');
-
-
-    fetch(`http://localhost:8080/question/${idQuestion}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na requisição');
-        }
-        return response.json();
-    })
-    getQuestionBySpace();
-}
-
-async function createQuestion(idSpace) {
-    let token = localStorage.getItem('token')
-
-    if (!token) {
-        console.log("Token nâo encontrado, permissão negada!");
-        return;
-    }
-
-    token = token.replace(/\\/g, '');
-    token = token.replace(/^"(.*)"$/, '$1');
-    token = token.replace(/^"(.*)"$/, '$1');
-
-    const btnFechar = document.getElementById("btnFechar");
-    const title = document.getElementById('questionTitle').value;
-    const question = document.getElementById('questionBody').value;
-
-    const questionData = {title, question, idSpace};
-
-
-    fetch(`http://localhost:8080/question`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(questionData),
-        credentials: 'include'
-    })
-    .then(response => {
-        if (!response.ok) {
-            alert("Erro na requisição!");
-            throw new Error('Erro na requisição!');
-        }
-        console.log("Question criada!")
-        btnFechar.click();
-        location.reload();
-        return response.json();
-    })
-
-    .catch(error => {
-        console.log("Error: ", error);
     })
 }
