@@ -1,6 +1,7 @@
 const spaceName = document.getElementById('spaceName');
 const cardContainer = document.getElementById('cardContainer');
 const btnQuestion = document.getElementById('createQuestionBtn');
+const btnBtns = document.getElementById('btnBtns');
 
 const urlParams = new URLSearchParams(window.location.search);
 const spaceId = urlParams.get('idSpace');
@@ -11,6 +12,13 @@ window.onload = () => {
         console.log(`ID do espaço: ${spaceId}`);
         getSpaceInfo(spaceId);
         getQuestionBySpace(spaceId);
+        const btnAddMembers = document.createElement('button');
+        btnAddMembers.classList.add('btn', 'btn-secondary', 'h-50');
+        const linkForAddMembers = document.createElement('a');
+        linkForAddMembers.href = `../members?spaceId=${spaceId}`;
+        linkForAddMembers.innerHTML = "Adicionar membros";
+        btnAddMembers.appendChild(linkForAddMembers);
+        btnBtns.appendChild(btnAddMembers);
     } else {
         console.log("ID não encontrado na URL.");
     }
@@ -136,6 +144,7 @@ async function deleteQuestion(idQuestion) {
         if (!response.ok) {
             throw new Error('Erro na requisição');
         }
+        location.reload();
         return response.json();
     })
     getQuestionBySpace();
