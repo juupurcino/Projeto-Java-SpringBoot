@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.example.demo.dto.Token;
 import com.example.demo.dto.UserDto;
 import com.example.demo.dto.UserDtoLogin;
 import com.example.demo.model.User;
+import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.CriptService;
 import com.example.demo.services.JWTService;
 import com.example.demo.services.LoginService;
@@ -37,6 +39,8 @@ public class UserController {
     PassService passService;
     @Autowired
     JWTService<Token> jwtService;
+    @Autowired
+    UserRepository userRepository;
 
     @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PostMapping("/user")
@@ -93,7 +97,7 @@ public class UserController {
         return new ResponseEntity<>(new SecurityToken(jwt, "Login authenticated!"), HttpStatus.OK);
     }
 
-
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @GetMapping("/user")
     public ResponseEntity<List<User>> getUsers(String query, Integer page, Integer size){
         if(page == null)
@@ -104,6 +108,17 @@ public class UserController {
         List<User> users = userService.get(query, page, size);
         if(users.isEmpty())
             return new ResponseEntity<>(users, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @GetMapping("/findUser/{name}")
+    public ResponseEntity<Object> getUsersByName(@PathVariable String name) {
+        var users = userRepository.findByUsernameIgnoreCase(name);
+
+        if (users.isEmpty())
+            return new ResponseEntity<>("Usuário não encontrado!", HttpStatus.NOT_FOUND);
+
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

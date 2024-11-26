@@ -29,11 +29,13 @@ public class PermissionController {
 
     @PostMapping()
     public ResponseEntity<String> postPermission(@RequestBody permissionDto data, @RequestAttribute("token") Token token){
+        // System.out.println(data.idSpace());
+        // System.out.println(data.idUser());
+        // System.out.println(data.level());
         User user = userService.getById(token.getId());
         if(!spaceService.checkAdm(user.getId(), data.idSpace()))
             return new ResponseEntity<>("Permissão insuficiente", HttpStatus.UNAUTHORIZED);
         permissionService.updatePermission(data.level(), data.idUser(), data.idSpace());
         return new ResponseEntity<>("Nível de permissão atualizado com sucesso! novo nível de permissão: " + data.level(), HttpStatus.OK);
     }   
-
 }
