@@ -13,9 +13,7 @@ nextButton.addEventListener('click', () => {
         currentPage += 1;
         getSpaces();
     }
-
     updateButtonState();
-
 })
 
 prevButton.addEventListener('click', () => {
@@ -23,7 +21,6 @@ prevButton.addEventListener('click', () => {
         currentPage -= 1;
         getSpaces();
     }
-
     updateButtonState();
 });
 
