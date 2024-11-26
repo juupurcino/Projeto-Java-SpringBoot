@@ -104,7 +104,7 @@ function getQuestionBySpace(spaceId) {
     })
 }
 
-await function deleteQuestion(idQuestion) {
+async function deleteQuestion(idQuestion) {
     
     let token = localStorage.getItem('token')
 
