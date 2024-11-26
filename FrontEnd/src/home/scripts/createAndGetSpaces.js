@@ -113,9 +113,7 @@ async function getSpaces() {
     );
 }
 
-
-
-document.getElementById('createSpaceBtn').addEventListener('click', async function () {
+async function createSpace() {
     const name = document.getElementById("spaceTitle").value;
 
     if (!name) {
@@ -123,33 +121,31 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
         return;
     }
 
+    let token = localStorage.getItem('token');
+
+    if (!token) {
+        console.log("Token não encontrado, permissão negada!");
+        return;
+    }
+
+    token = token.replace(/\\/g, '');
+    token = token.replace(/^"(.*)"$/, '$1');
+    token = token.replace(/^"(.*)"$/, '$1');
+
     const spaceData = { name, qtdUsers: 1 };
 
     try {
-        const token = localStorage.getItem("token");
-        
-        token = token.replace(/\\/g, '')
-        token = token.replace(/^(.*)"$/, '$1')
-        token = token.replace(/^(.*)"$/, '$1')
-        console.log("Token recebido:", token);
-
-        if (!token) {
-            alert("Token não encontrado. Faça login novamente.");
-            return;
-        }
-
-        const response = await fetch("http://localhost:8080/spaces", {
+        const response = await fetch(`http://localhost:8080/spaces`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(spaceData),
-            credentials: 'include'  // Se necessário, adicionar credenciais para cookies ou headers
+            body: JSON.stringify(spaceData)
         });
 
         if (!response.ok) {
-            throw new Error('Erro ao criar espaço: ' + response.statusText);
+            throw new Error(`Erro na requisição: ${response.statusText}`);
         }
 
         const contentType = response.headers.get("content-type");
@@ -157,8 +153,7 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
         if (contentType && contentType.includes("application/json")) {
             const data = await response.json();
             console.log('Espaço criado com sucesso:', data);
-            window.onload = getSpaces();
-            
+            window.location.href = "http://127.0.0.1:5500/FrontEnd/src/home/index.html"
         } else {
             const message = await response.text();
             console.log('Resposta recebida:', message); 
@@ -170,9 +165,10 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
                closeButton.click();  // Fechar o modal
            }
     } catch (error) {
-        console.error('Erro:', error);
+        console.log('Erro ao criar o espaço:', error);
     }
-});
+}
 
+document.getElementById('createSpaceBtn').addEventListener('click', createSpace);
 
 window.onload = getSpaces();
