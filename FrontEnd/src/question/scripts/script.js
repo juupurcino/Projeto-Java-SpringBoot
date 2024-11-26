@@ -3,18 +3,16 @@ const questionTitle = document.getElementById('titleQuestion');
 const userName = document.getElementById("userName")
 const question = document.getElementById("question")
 const card = document.getElementById("cardContainer")
+const btnNewAnswer = document.getElementById('newAnswer');
 
 const urlParams = new URLSearchParams(window.location.search);
 const questionId = urlParams.get('idQuestion');
 
-if (!questionId || isNaN(questionId)) {
-    console.error("ID inválido para a pergunta.");
-}
-
 window.onload = () => {
 
-    if (questionId) {
+    if (questionId && spaceId) {
         console.log(`ID da questão: ${questionId}`);
+        console.log(`ID do Espaço: ${spaceId}`);
         getQuestionInfo(questionId);
         getAnswers(questionId)
   

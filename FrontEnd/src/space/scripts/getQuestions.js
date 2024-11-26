@@ -106,7 +106,7 @@ async function getQuestionBySpace(spaceId) {
                 card.innerHTML = `
                     <div class="card-body">
                         <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;" onclick="deleteQuestion(${question.id})">🗑️</button>
-                        <a href="/FrontEnd/src/question/index.html?idQuestion=${question.id}">
+                        <a href="/FrontEnd/src/question/index.html?idQuestion=${question.id}&&idSpace=${spaceId}">
                             <h4 class="card-title">${question.user.username}: ${question.title}</h5>
                             <p class="card-text">${question.question}</p>
                         </a>
