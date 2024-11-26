@@ -30,9 +30,9 @@ function getSpaceInfo(spaceId) {
 
     var idNumber = parseInt(spaceId, 10);
 
-    const viewMembersButton = document.querySelector('.btn-secondary a');
+    // const viewMembersButton = document.querySelector('.btn-secondary a');
 
-    viewMembersButton.href = `/FrontEnd/src/members/index.html?idSpace=${idNumber}`;
+    // viewMembersButton.href = `/FrontEnd/src/members/index.html?idSpace=${idNumber}`;
 
     fetch(`http://localhost:8080/spaces/${idNumber}`, {
         method: 'GET',
