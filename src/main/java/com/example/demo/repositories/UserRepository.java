@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.example.demo.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+    List<User> findByUsernameIgnoreCase(String username);
     
     @Query("SELECT u FROM User u WHERE u.username = :searchValue or u.email = :searchValue or u.edv = :searchValue")
     List<User> searchUser(@Param("searchValue") String searchValue);

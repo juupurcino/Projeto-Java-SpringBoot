@@ -1,7 +1,12 @@
 const spaceName = document.getElementById('spaceName');
 const cardContainer = document.getElementById('cardContainer');
+const cardUsersContainer = document.getElementById('cardUsersContainer');
 const btnQuestion = document.getElementById('createQuestionBtn');
 const btnBtns = document.getElementById('btnBtns');
+const btnPermission = document.getElementById('changePermission');
+var modal = new bootstrap.Modal(document.getElementById('modalUser'));
+var modalMember = new bootstrap.Modal(document.getElementById('newMember'));
+const modalBody = document.getElementById('modalUsers');
 
 const urlParams = new URLSearchParams(window.location.search);
 const spaceId = urlParams.get('idSpace');
@@ -10,15 +15,9 @@ window.onload = () => {
 
     if (spaceId) {
         console.log(`ID do espaço: ${spaceId}`);
-        getQuestionInfo(spaceId);
+        getSpaceInfo(spaceId);
         getQuestionBySpace(spaceId);
-        const btnAddMembers = document.createElement('button');
-        btnAddMembers.classList.add('btn', 'btn-secondary', 'h-50');
-        const linkForAddMembers = document.createElement('a');
-        linkForAddMembers.href = `../members?spaceId=${spaceId}`;
-        linkForAddMembers.innerHTML = "Adicionar membros";
-        btnAddMembers.appendChild(linkForAddMembers);
-        btnBtns.appendChild(btnAddMembers);
+
     } else {
         console.log("ID não encontrado na URL.");
     }
@@ -28,7 +27,11 @@ btnQuestion.addEventListener('click', () => {
     createQuestion(spaceId);
 });
 
-async function getQuestionInfo(spaceId) {
+btnPermission.addEventListener('click', () => {
+    getMembers();
+})
+
+async function getSpaceInfo(spaceId) {
 
     let token = localStorage.getItem('token')
 
@@ -42,10 +45,6 @@ async function getQuestionInfo(spaceId) {
     token = token.replace(/^"(.*)"$/, '$1');
 
     var idNumber = parseInt(spaceId, 10);
-
-    // const viewMembersButton = document.querySelector('.btn-secondary a');
-
-    // viewMembersButton.href = `/FrontEnd/src/members/index.html?idSpace=${idNumber}`;
 
     fetch(`http://localhost:8080/spaces/${idNumber}`, {
         method: 'GET',
@@ -185,6 +184,111 @@ async function createQuestion(idSpace) {
         }
         console.log("Question criada!")
         btnFechar.click();
+        location.reload();
+        return response.json();
+    })
+
+    .catch(error => {
+        console.log("Error: ", error);
+    })
+}
+
+
+async function getMembers() {
+    const name = document.getElementById("nomeDoCidadao").value;
+    const permissao = document.getElementById("permissao").value;
+    console.log("Permissão selecionada:", permissao);
+
+    let token = localStorage.getItem('token')
+
+    if (!token) {
+        console.log("Token nâo encontrado, permissão negada!");
+        return;
+    }
+
+    token = token.replace(/\\/g, '');
+    token = token.replace(/^"(.*)"$/, '$1');
+    token = token.replace(/^"(.*)"$/, '$1');
+
+
+    fetch(`http://localhost:8080/findUser/${name}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Usuário não encontrado');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        if (data.length > 1) {
+            // alert("Há mais de um usuário com esse nome! Escolha qual usuário você quer mudar a permissão: ")
+            document.getElementById('btnFecharUser').click();
+            modalMember.hide();
+            modal.show();
+
+            modalBody.innerHTML = '' 
+            data.forEach(users => {
+                const cardUser = document.createElement('div');
+                    cardUser.classList.add('card', 'w-75', 'h-25', 'p-3');
+                    cardUser.innerHTML = `
+                         <button class="btn" onclick="changePermissionUser(${spaceId}, ${users.id}, ${parseInt(permissao)})">
+                            <h4 class="card-title">Nome: ${users.username}</h4>
+                            <p class="card-text">EDV: ${users.edv}</p>
+                            <p class="card-text">Email: ${users.email}</p>
+                        </button>
+
+                    `;
+                    modalBody.appendChild(cardUser);
+            })
+            
+        }
+
+        else {
+            changePermissionUser(spaceId, data[0].id, parseInt(permissao));
+        }
+    })
+}
+
+
+async function changePermissionUser(idSpace, idUser, level) {
+    let token = localStorage.getItem('token')
+
+    if (!token) {
+        console.log("Token nâo encontrado, permissão negada!");
+        return;
+    }
+
+    token = token.replace(/\\/g, '');
+    token = token.replace(/^"(.*)"$/, '$1');
+    token = token.replace(/^"(.*)"$/, '$1');
+
+    const btnFecharUser = document.getElementById("btnFecharUser");
+
+    const permissionData = {idSpace, idUser, level};
+
+
+    fetch(`http://localhost:8080/permission`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(permissionData),
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            alert("Erro na requisição!");
+            throw new Error('Erro na requisição!');
+        }
+        console.log("Permissão alterada!")
+        btnFecharUser.click();
         location.reload();
         return response.json();
     })
