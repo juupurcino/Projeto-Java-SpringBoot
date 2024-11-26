@@ -15,7 +15,7 @@ window.onload = () => {
 
     if (spaceId) {
         console.log(`ID do espaço: ${spaceId}`);
-        getSpaceInfo(spaceId);
+        getQuestionInfo(spaceId);
         getQuestionBySpace(spaceId);
 
     } else {

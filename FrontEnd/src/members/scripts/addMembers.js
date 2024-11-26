@@ -7,7 +7,7 @@ window.onload = () => {
 
     if (spaceId) {
         console.log(`ID do espaço: ${spaceId}`);
-        getSpaceInfo(spaceId);
+        getQuestionInfo(spaceId);
         // getQuestionBySpace(spaceId);
         // fetchQuestions(spaceId);
     } else {
@@ -15,7 +15,7 @@ window.onload = () => {
     }
 }
 
-function getSpaceInfo(spaceId) {
+function getQuestionInfo(spaceId) {
 
     let token = localStorage.getItem('token')
 

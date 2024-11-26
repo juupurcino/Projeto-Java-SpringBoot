@@ -72,7 +72,7 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div id="cardsContainer" class="d-flex container flex-column">
 
-                    <h2>Pergunta</h2>
+                    <h2 id="titleQuestion">Pergunta</h2>
                     
                         
                     <div id="cardContainer" class="d-flex justify-content-center w-100 flex-column align-items-center">                <!-- cardsContainer: PARA RENDERIZAR AS PRGUNTAS DO ESPAÇO -->
@@ -80,8 +80,8 @@
                         <!-- COMPONENTE DO CARD -->
                         <div class="card w-100 h-25" idPergunta=2>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
                             <div class="card-body">
-                              <h5 class="user-name">{Nome do Usuário}</h5>
-                              <p class="question-body">{Texto da Pergunta}</p>
+                              <h5 id="userName" class="user-name">{Nome do Usuário}</h5>
+                              <p id="question" class="question-body">{Texto da Pergunta}</p>
                             </div>
                         </div>
         
@@ -163,7 +163,6 @@
         <img src="../../public/assets/line.png" class="fixed-bottom" alt="">
     </main>
 
-    <script src="scripts/getQuestion.js"></script>
-    <script src="scripts/getAnswer.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 </html>
