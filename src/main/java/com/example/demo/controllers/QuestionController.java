@@ -42,6 +42,12 @@ public class QuestionController {
         User user = userService.getById(token.getId());
         Permission permission = permissionService.getByUserId(user.getId(), newQuestion.idSpace());
 
+        if (newQuestion.title().isEmpty() || newQuestion.title() == null)
+            return new ResponseEntity<>("Campos nulos", HttpStatus.BAD_REQUEST);
+
+        if (newQuestion.question().isEmpty() || newQuestion.question() == null)
+            return new ResponseEntity<>("Campos nulos", HttpStatus.BAD_REQUEST);
+
         if(permission == null || permission.getLevel() == 2)
             return new ResponseEntity<>("Permissão insuficiente!", HttpStatus.UNAUTHORIZED);
         

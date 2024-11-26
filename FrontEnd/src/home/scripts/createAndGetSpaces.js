@@ -138,7 +138,12 @@ async function createSpace() {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
+<<<<<<< HEAD
+            body: JSON.stringify(spaceData),
+            credentials: 'include'
+=======
             body: JSON.stringify(spaceData)
+>>>>>>> 13bbf91249f57e2778f1e11e84bf735325916550
         });
 
         if (!response.ok) {
