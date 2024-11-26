@@ -10,7 +10,7 @@ window.onload = () => {
 
     if (spaceId) {
         console.log(`ID do espaço: ${spaceId}`);
-        getSpaceInfo(spaceId);
+        getQuestionInfo(spaceId);
         getQuestionBySpace(spaceId);
         const btnAddMembers = document.createElement('button');
         btnAddMembers.classList.add('btn', 'btn-secondary', 'h-50');
@@ -28,7 +28,7 @@ btnQuestion.addEventListener('click', () => {
     createQuestion(spaceId);
 });
 
-async function getSpaceInfo(spaceId) {
+async function getQuestionInfo(spaceId) {
 
     let token = localStorage.getItem('token')
 
