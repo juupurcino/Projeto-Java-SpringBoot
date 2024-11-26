@@ -47,12 +47,40 @@
             <div class="d-flex justify-content-around w-100 align-items-center">
                 <h2 class="mb-5 mt-5" id="spaceName">Carregando espaço...</h2>
                 <div class="d-flex gap-3">
-                    <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Nova Pergunta</button>
+                    <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newQuestion">Nova Pergunta</button>
                     <button type="button" class="btn btn-secondary h-50"><a class="text-white" href="../members/">Ver Membros</a></button>
                 </div>
             </div>
             <div id="cardContainer" class="d-flex justify-content-center w-100 flex-column gap-5 align-items-center">   
                 <!-- Aqui será onde vamos renderizar as perguntas dinamicamente -->
+            </div>
+        </div>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="newQuestion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+    
+            <div class="modal-content" id="question-form">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Nova pergunta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="exampleQuestion" class="form-label fw-medium">Título</label>
+                    <input type="text" class="form-control" id="questionTitle"> 
+
+                    <label for="exampleQuestion" class="form-label fw-medium">Pergunta</label>
+                    <textarea type="text" class="form-control" id="questionBody" style="height: 150px !important; align-items: flex-start !important; justify-content: flex-start !important; text-align: start !important; padding-top: 10px !important; resize: none;"></textarea>  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnFechar">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="createQuestionBtn">Criar</button>
+    
+                </div>
+            </div>
+    
             </div>
         </div>
     </main>

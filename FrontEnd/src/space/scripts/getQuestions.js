@@ -1,21 +1,26 @@
 const spaceName = document.getElementById('spaceName');
 const cardContainer = document.getElementById('cardContainer');
+const btnQuestion = document.getElementById('createQuestionBtn');
+
+const urlParams = new URLSearchParams(window.location.search);
+const spaceId = urlParams.get('idSpace');
 
 window.onload = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const spaceId = urlParams.get('idSpace');
 
     if (spaceId) {
         console.log(`ID do espaço: ${spaceId}`);
         getSpaceInfo(spaceId);
         getQuestionBySpace(spaceId);
-        // fetchQuestions(spaceId);
     } else {
         console.log("ID não encontrado na URL.");
     }
 }
 
-function getSpaceInfo(spaceId) {
+btnQuestion.addEventListener('click', () => {
+    createQuestion(spaceId);
+});
+
+async function getSpaceInfo(spaceId) {
 
     let token = localStorage.getItem('token')
 
@@ -41,7 +46,6 @@ function getSpaceInfo(spaceId) {
         if (!response.ok) {
             throw new Error('Erro na requisição');
         }
-        // Converta o corpo da resposta para JSON
         return response.json();
     })
     .then(data => {
@@ -50,7 +54,7 @@ function getSpaceInfo(spaceId) {
     })
 }
 
-function getQuestionBySpace(spaceId) {
+async function getQuestionBySpace(spaceId) {
     let token = localStorage.getItem('token')
 
     if (!token) {
@@ -75,7 +79,6 @@ function getQuestionBySpace(spaceId) {
         if (!response.ok) {
             throw new Error('Erro na requisição');
         }
-        // Converta o corpo da resposta para JSON
         return response.json();
     })
     .then(data => {
@@ -129,39 +132,51 @@ async function deleteQuestion(idQuestion) {
         if (!response.ok) {
             throw new Error('Erro na requisição');
         }
-        // Converta o corpo da resposta para JSON
         return response.json();
     })
+    getQuestionBySpace();
 }
 
-// Função para buscar as perguntas com base no ID do espaço
-// function fetchQuestions(spaceId) {
-//     // Exemplo de chamada para uma API (substitua com a URL da sua API ou lógica de banco de dados)
-//     fetch(`/api/perguntas?${spaceId}`)
-//         .then(response => response.json())
-//         .then(data => {
-//             console.log("Perguntas do espaço:", data);
-//             displayQuestions(data);
-//         })
-//         .catch(error => console.error("Erro ao carregar perguntas:", error));
-// }
+async function createQuestion(idSpace) {
+    let token = localStorage.getItem('token')
 
-// Função para renderizar as perguntas no HTML
-// function displayQuestions(questions) {
-//     const cardContainer = document.getElementById('cardContainer');
-//     cardContainer.innerHTML = ''; // Limpa qualquer conteúdo existente
-    
-//     questions.forEach(question => {
-//         const card = document.createElement('div');
-//         card.classList.add('card', 'w-75', 'h-25');
-//         card.innerHTML = `
-//             <div class="card-body">
-//                 <button class="btn btn-danger btnExcluir" style="position: absolute; right: 5%;">🗑️</button>
-//                 <h5 class="card-title">${question.title}</h5>
-//                 <p class="card-text">${question.body}</p>
-//                 <p class="card-text"><small class="text-muted">Atualizado por último há ${question.timeAgo}</small></p>
-//             </div>
-//         `;
-//         cardContainer.appendChild(card);
-//     });
-// }
+    if (!token) {
+        console.log("Token nâo encontrado, permissão negada!");
+        return;
+    }
+
+    token = token.replace(/\\/g, '');
+    token = token.replace(/^"(.*)"$/, '$1');
+    token = token.replace(/^"(.*)"$/, '$1');
+
+    const btnFechar = document.getElementById("btnFechar");
+    const title = document.getElementById('questionTitle').value;
+    const question = document.getElementById('questionBody').value;
+
+    const questionData = {title, question, idSpace};
+
+
+    fetch(`http://localhost:8080/question`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(questionData),
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            alert("Erro na requisição!");
+            throw new Error('Erro na requisição!');
+        }
+        console.log("Question criada!")
+        btnFechar.click();
+        location.reload();
+        return response.json();
+    })
+
+    .catch(error => {
+        console.log("Error: ", error);
+    })
+}

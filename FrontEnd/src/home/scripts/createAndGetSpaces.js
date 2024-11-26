@@ -142,7 +142,7 @@ document.getElementById('createSpaceBtn').addEventListener('click', async functi
                 'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(spaceData),
-            credentials: 'include'  // Se necessário, adicionar credenciais para cookies ou headers
+            credentials: 'include'
         });
 
         if (!response.ok) {
