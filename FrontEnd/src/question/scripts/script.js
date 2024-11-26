@@ -2,10 +2,14 @@
 const questionTitle = document.getElementById('titleQuestion');
 const userName = document.getElementById("userName")
 const question = document.getElementById("question")
-const card = document.getElementById("cardQuestion")
+const card = document.getElementById("cardContainer")
 
 const urlParams = new URLSearchParams(window.location.search);
 const questionId = urlParams.get('idQuestion');
+
+if (!questionId || isNaN(questionId)) {
+    console.error("ID inválido para a pergunta.");
+}
 
 window.onload = () => {
 
@@ -54,7 +58,6 @@ async function getQuestionInfo(idQuestion) {
         question.innerHTML = data.question;
     })
 }
-
 async function getAnswers(questionId) {
     let token = localStorage.getItem('token');
 
@@ -67,16 +70,8 @@ async function getAnswers(questionId) {
     token = token.replace(/^"(.*)"$/, '$1');
     token = token.replace(/^"(.*)"$/, '$1');
 
-    // Validar o questionId
-    const id = parseInt(questionId, 10);
-    
-    if (isNaN(id) || id <= 0) {
-        console.error("ID inválido para a pergunta.");
-        return;
-    }
-
     try {
-        const response = await fetch(`http://localhost:8080/answer`, {
+        const response = await fetch(`http://localhost:8080/answer/${questionId}?page=1&size=10`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -85,31 +80,53 @@ async function getAnswers(questionId) {
         });
 
         if (!response.ok) {
-            console.error("Erro na requisição:", response.status, response.statusText);
-            throw new Error('Erro na requisição');
+            // Se a resposta não for 200-299, trata como erro
+            if (response.status === 400) {
+                console.log("Não há respostas ainda");
+                card.innerHTML = 'Não há respostas ainda!';
+            } else {
+                console.log(`Erro desconhecido: ${response.status}`);
+            }
+            return;
         }
 
         const data = await response.json();
 
-        const cardContainer = document.getElementById('cardContainer');
-        cardContainer.innerHTML = ''; // Limpar antes de renderizar
-
-        if (!data || data.length === 0) {
-            cardContainer.innerHTML = 'Não há respostas ainda!';
+        if (data.length === 0) {
+            card.innerHTML = 'Não há respostas ainda!';
             return;
         }
 
         data.forEach((answer) => {
+            // Criar um novo card para cada resposta
             const card = document.createElement('div');
-            card.classList.add('card', 'w-75', 'h-25');
+            card.classList.add('d-flex', 'justify-content-between', 'flex-row', 'relative');
+            card.style.position = 'relative';
+        
+            // Adicionar conteúdo do card
             card.innerHTML = `
-                <div>
-                    <p>Resposta: ${answer.text}</p>
-                </div>`;
+                <div class="upvote">
+                    <button class="upCircle">🔼</button>
+                    <p class="mb-2">0</p>
+                    <button class="downCircle">🔽</button>
+                </div>
+                <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
+                    <div class="card flex-wrap" style="width: 70rem; height: fit-content;">
+                        <div class="card-body">
+                            <h5 class="card-title">${answer.title}</h5>
+                            <p class="card-text">${answer.answer}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Adicionar o card ao container
+            const cardContainer = document.getElementById('cardContainer');
             cardContainer.appendChild(card);
         });
+        
     } catch (error) {
-        console.error(error.message);
+        console.error("Erro ao buscar respostas:", error.message);
     }
 }
 
