@@ -2,11 +2,59 @@
 const questionTitle = document.getElementById('titleQuestion');
 const userName = document.getElementById("userName")
 const question = document.getElementById("question")
-const card = document.getElementById("cardContainer")
+const card = document.getElementById("card")
 const btnNewAnswer = document.getElementById('newAnswer');
 
 const urlParams = new URLSearchParams(window.location.search);
 const questionId = urlParams.get('idQuestion');
+const spaceId = urlParams.get('idSpace');
+
+btnNewAnswer.addEventListener('click', () => {
+
+    let token = localStorage.getItem('token')
+
+    if (!token) {
+        console.log("Token nâo encontrado, permissão negada!");
+        return;
+    }
+
+    token = token.replace(/\\/g, '');
+    token = token.replace(/^"(.*)"$/, '$1');
+    token = token.replace(/^"(.*)"$/, '$1');
+
+    const btnFechar = document.getElementById("btnFechar");
+    const answer = document.getElementById('answerText').value;
+    console.log(answer);
+
+    const idSpace = spaceId;
+    const idQuestion = questionId;
+    const answerData = {answer, idQuestion, idSpace};
+
+
+    fetch(`http://localhost:8080/answer`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(answerData),
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            alert("Você não pode responder essa pergunta!");
+            throw new Error('Erro na requisição!');
+        }
+        console.log("Resposta criada!")
+        btnFechar.click();
+        location.reload();
+        return response.json();
+    })
+
+    .catch(error => {
+        console.log("Error: ", error);
+    })
+})
 
 window.onload = () => {
 
@@ -56,6 +104,7 @@ async function getQuestionInfo(idQuestion) {
         question.innerHTML = data.question;
     })
 }
+
 async function getAnswers(questionId) {
     let token = localStorage.getItem('token');
 
