@@ -17,8 +17,9 @@
     <link rel="stylesheet" href="../../public/css/card.css">
     <link rel="stylesheet" href="css/style.css">
     
-    <title>Respostas</title>
+    <title>Página Inicial</title>
 
+    <script src="scripts/script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous" defer></script>
 </head>
@@ -33,12 +34,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label for="exampleSpace" class="form-label fw-medium">Texto da Resposta</label>
-                <input type="text" class="form-control" id="spaceTitle">  
+                <label for="answerText" class="form-label fw-medium">Texto da Resposta</label>
+                <input type="text" class="form-control" id="answerText">  
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Responder</button>
+                <button type="button" id="createAnsBtn" class="btn btn-primary">Responder</button>
             </div>
         </div>
         </div>
@@ -72,7 +73,7 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div id="cardsContainer" class="d-flex container flex-column">
 
-                    <h2 id="titleQuestion">Pergunta</h2>
+                    <h2 id="titleQuestion" >Pergunta</h2>
                     
                         
                     <div id="cardContainer" class="d-flex justify-content-center w-100 flex-column align-items-center">                <!-- cardsContainer: PARA RENDERIZAR AS PRGUNTAS DO ESPAÇO -->
@@ -80,8 +81,8 @@
                         <!-- COMPONENTE DO CARD -->
                         <div class="card w-100 h-25" idPergunta=2>                                       <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
                             <div class="card-body">
-                              <h5 id="userName" class="user-name">{Nome do Usuário}</h5>
-                              <p id="question" class="question-body">{Texto da Pergunta}</p>
+                              <h5 id="userName" class="card-title">{Nome do Usuário}</h5>
+                              <p id="question" class="card-text">{Texto da Pergunta}</p>
                             </div>
                         </div>
         
@@ -103,29 +104,7 @@
                             </button>
                         </div>
                         <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
-                            <div class="card flex-wrap" id="questionDiv" style="width: 70rem; height: fit-content;"> 
-                                
-                                <!-- Aqui ficarão as respostas das perguntas -->
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="d-flex justify-content-between flex-row relative" style="position: relative;">
-                        <div class="upvote">
-                            <button class="upCircle">
-                                🔼
-                            </button>
-                            <p class="mb-2">
-                                0
-                            </p>
-                            <button class="downCircle">
-                                🔽
-                            </button>
-                        </div>
-                        <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
-                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                
-                            
+                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
                                 <div class="card-body">
                                     <h5 class="card-title">{Nome do Usuário}</h5>
                                     <p class="card-text">{Texto da Resposta}</p>
@@ -147,7 +126,7 @@
                             </button>
                         </div>
                         <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
-                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                
+                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
                                 <div class="card-body">
                                     <h5 class="card-title">{Nome do Usuário}</h5>
                                     <p class="card-text">{Texto da Resposta}</p>
@@ -155,14 +134,32 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
 
-
+                    <div class="d-flex justify-content-between flex-row relative" style="position: relative;">
+                        <div class="upvote">
+                            <button class="upCircle">
+                                🔼
+                            </button>
+                            <p class="mb-2">
+                                0
+                            </p>
+                            <button class="downCircle">
+                                🔽
+                            </button>
+                        </div>
+                        <div class="row d-flex flex-wrap gap-3 align-items-center w-100">
+                            <div class="card flex-wrap" style="width: 70rem; height: fit-content;">                                <!-- idPergunta: ID DA PERGUNTA PARA REDIRECIONAR À PAGINA DAS RESPOTAS DA PERGUNTA-->
+                                <div class="card-body">
+                                    <h5 class="card-title">{Nome do Usuário}</h5>
+                                    <p class="card-text">{Texto da Resposta}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <img src="../../public/assets/line.png" class="fixed-bottom" alt="">
     </main>
-
-    <script src="scripts/script.js"></script>
 </body>
 </html>
