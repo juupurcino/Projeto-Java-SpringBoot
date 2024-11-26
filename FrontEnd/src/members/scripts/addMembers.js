@@ -50,8 +50,6 @@ function getSpaceInfo(spaceId) {
     })
 }
 
-
-
 function getMenbersBySpace(spaceId) {
     let token = localStorage.getItem('token')
 

@@ -37,6 +37,35 @@
                 <input type="text" id="searchBar" class="form-control mb-2" placeholder="Pesquise um espaço..." aria-label="Username" aria-describedby="basic-addon1">
             </div>
         </nav>
+
+         <!-- Modal -->
+    <div class="modal fade" id="newSpace" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Criar Nova Pergunta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-flex flex-column gap-4">
+                    <div class="form-group">
+                      <label for="nomeDoCidadão">Nome do Membro</label>
+                      <input id="nomeDoCidadão" class="form-control" placeholder="Digite aqui o nome do cidadão...">
+                    </div>
+                    <div class="form-group">
+                        <label for="permissão">Permissão</label>
+                        <input id="permissão"  class="form-control" placeholder="3 - ADM, 2- MEMBRO ">
+                    </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Criar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     </header>
 
     <!-- Basicamente aqui vamos ter todos os espaços que a pessoa participa -->
