@@ -17,10 +17,11 @@
     <link rel="stylesheet" href="../../public/css/card.css">
     <link rel="stylesheet" href="index.css">
     
-    <title>Página Inicial</title>
-
+    <title>Membros</title>
+    
+    <script src="scripts/addMembers.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous" defer></script>
 </head>
 <body>
 
@@ -72,7 +73,7 @@
         <div class="d-flex flex-column justify-content-center align-items-center">
 
             <div class="d-flex justify-content-around w-100 align-items-center">
-                <h2 class="mb-5 mt-5">{nome do espaço}</h2>
+                <h2 class="mb-5 mt-5" id="spaceName" name="spaceName">{nome do espaço}</h2>
                 <div class="d-flex gap-3">
                     <button type="button" class="btn btn-primary h-50" data-bs-toggle="modal" data-bs-target="#newSpace">Novo Membro</button>
                     <button type="button" class="btn btn-secondary h-50"><a class="text-white" href="../members/">Ver Membros</a></button>
